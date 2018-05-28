@@ -46,6 +46,10 @@ public class InnoSelectorViewController: UIViewController {
     //MARK:- Completion Handler
     public var completionHandler:((SelectorFilterEvent, [CustomDataObject]) -> Void)?
     
+    //MARK: - Public Variable Declaration
+    public var setFullScreen:Bool = false
+    
+    
     //MARK:- Local variable declaration
     var innoSelectorViewModel = InnoSelectorCustomCellViewModel()
     
@@ -79,6 +83,10 @@ public class InnoSelectorViewController: UIViewController {
         
         if !innoSelectorViewModel.isMultiselect{
             disableBottomContainer()
+        }
+        
+        if setFullScreen {
+            mainContainerMultiplier = 1
         }
         
         // Main Container Properties
@@ -127,14 +135,6 @@ public class InnoSelectorViewController: UIViewController {
     
     
     //MARK:- Public Functions
-    /// Based on the 'value' it will change the layout size, if its "true" it will set the layout to full screen
-    ///
-    /// - Parameter value: Bool value
-    public func setFullscreen(value: Bool) -> Void {
-        if value {
-            mainContainerMultiplier = 1
-        }
-    }
     
     /// It will set the title string and color for that string
     ///

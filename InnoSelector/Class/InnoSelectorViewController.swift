@@ -1,0 +1,341 @@
+//
+//  InnoSelectorViewController.swift
+//  InnoSelector
+//
+//  Created by gopinath.a on 24/05/18.
+//  Copyright © 2018 innoplexus. All rights reserved.
+//
+
+import UIKit
+
+public class InnoSelectorViewController: UIViewController {
+    
+    //MARK:- UI Declaration
+    @IBOutlet var parentView: UIView!
+    @IBOutlet weak var dismissView: UIView!
+    
+    @IBOutlet weak var mainContainerView: UIView!
+    @IBOutlet weak var mainContainerViewHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var selectorTitle: UINavigationBar!
+    
+    @IBOutlet weak var selectorTableView: UITableView!
+    
+    @IBOutlet weak var bottomContainerView: UIView!
+    @IBOutlet weak var bottomContainerViewHeight: NSLayoutConstraint!
+    
+    @IBOutlet weak var applyButton: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
+    
+    //MARK:- Button Press Functionalities
+    @IBAction func applyButtonPressed(_ sender: Any) {
+        if innoSelectorViewModel.selectedValues.count != 0  {
+            completionHandler!(.didApply, innoSelectorViewModel.selectedValues)
+            dismiss()
+        }else {
+            selectorTableView.shake()
+        }
+        
+    }
+    
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        completionHandler!(.didCancel, innoSelectorViewModel.selectedValues)
+        dismiss()
+    }
+    
+    //MARK:- Completion Handler
+    public var completionHandler:((SelectorFilterEvent, [CustomDataObject]) -> Void)?
+    
+    //MARK:- Local variable declaration
+    var innoSelectorViewModel = InnoSelectorCustomCellViewModel()
+    
+    var selectorTitleColor: UIColor? = UIColor.black
+    var selectorTitleValue: String? = "SELECTOR"
+    
+    var cellPrimaryTextColor:UIColor? = UIColor.black
+    var cellSubTextColor:UIColor? = UIColor.darkGray
+    
+    var buttonThemeColor:UIColor? = UIColor.black
+    
+    var mainContainerMultiplier:CGFloat = 0.4
+    var bottomContainerMultiplier: CGFloat? = nil
+    
+    //MARK:- Storyboard Initialisation
+    @objc public static func instantiate() -> InnoSelectorViewController {
+        let storyboardsBundle = getStoryboardsBundle()
+        let storyboard:UIStoryboard = UIStoryboard(name: "InnoSelectorViewController", bundle: storyboardsBundle)
+        let popOverAlertViewController = storyboard.instantiateViewController(withIdentifier: "InnoSelectorViewController") as! InnoSelectorViewController
+        
+        return popOverAlertViewController
+    }
+    
+    override public func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+    }
+    
+    //MARK:- Base UI Setup
+    func setupUI() -> Void {
+        
+        if !innoSelectorViewModel.isMultiselect{
+            disableBottomContainer()
+        }
+        
+        // Main Container Properties
+        mainContainerView.applyShadow(cornerRadius: 0, color: UIColor.darkGray, opacity: 0.3, offsetWidth: 0, offsetHeight: -5)
+        mainContainerViewHeight = mainContainerViewHeight.setMultiplier(multiplier: mainContainerMultiplier)
+        
+        // Table View Properties
+        selectorTableView.tableFooterView = UIView(frame: CGRect.zero)
+        selectorTableView.rowHeight = CGFloat(44)
+        selectorTableView.delegate = self
+        selectorTableView.dataSource = self
+        
+        // Button Configuration
+        let count = innoSelectorViewModel.dataSource.count
+        if count == 0{
+            applyButton.isUserInteractionEnabled = false
+            applyButton.alpha = 0.2
+            selectorTableView.showMessage(message: "NO DATA")
+        }else{
+            
+            applyButton.isUserInteractionEnabled = true
+            applyButton.alpha = 1.0
+            selectorTableView.hideMessage()
+        }
+        
+        
+        // Bottom Container Properties
+        if bottomContainerMultiplier != nil {
+            bottomContainerViewHeight = bottomContainerViewHeight.setMultiplier(multiplier: bottomContainerMultiplier!)
+            bottomContainerView.alpha = CGFloat(0)
+            bottomContainerViewHeight.constant = 0
+        }
+        bottomContainerView.layer.borderWidth = 0.5
+        bottomContainerView.layer.borderColor = UIColor.darkGray.cgColor
+        cancelButton.layer.borderWidth = 0.5
+        cancelButton.layer.borderColor = UIColor.darkGray.cgColor
+        cancelButton.setTitleColor(buttonThemeColor, for: .normal)
+        applyButton.backgroundColor = buttonThemeColor
+        
+        // Title Properties
+        selectorTitle.topItem?.title = selectorTitleValue != nil ? selectorTitleValue : "SELECTOR"
+        let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
+        selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
+        
+    }
+    
+    
+    //MARK:- Public Functions
+    /// Based on the 'value' it will change the layout size, if its "true" it will set the layout to full screen
+    ///
+    /// - Parameter value: Bool value
+    public func setFullscreen(value: Bool) -> Void {
+        if value {
+            mainContainerMultiplier = 1
+        }
+    }
+    
+    /// It will set the title string and color for that string
+    ///
+    /// - Parameters:
+    ///   - title: String to be rendered as a Title
+    ///   - color: Color for the Title
+    public func setTitle(title:String?, color:UIColor?) -> Void {
+        selectorTitleValue = title
+        selectorTitleColor = color
+    }
+    
+    /// It will set the color to the event buttons in the bottom
+    ///
+    /// - Parameter color: Button Color
+    public func setButtonThemeColor(color:UIColor?) -> Void {
+        buttonThemeColor = color
+    }
+    
+    /// It will get the data from the user and store that to the model class
+    ///
+    /// - Parameters:
+    ///   - dataSource: Data's to be showed in the tableView
+    ///   - selectedValues: Set of Data's that already selected by the user
+    ///   - isMultiselect: It will ensure that the data selection is single select or multi select
+    ///   - minSelection: Minimum number of selection that the user should select
+    ///   - maxSelection: Maximun number of selection that the user can select
+    public func setTableContent(dataSource: [CustomDataObject], selectedValues:[CustomDataObject] = [], isMultiselect: Bool, minSelection: Int,maxSelection: Int) -> Void {
+        innoSelectorViewModel = InnoSelectorCustomCellViewModel(dataSource: dataSource, selectedValues: selectedValues, isMultiselect: isMultiselect, minSelection: minSelection, maxSelection: maxSelection)
+    }
+    
+    /// It will set the text color for the conten in the table view
+    ///
+    /// - Parameters:
+    ///   - primaryText: Color for the primary text
+    ///   - subText: Color for the sub text
+    public func setTableContentTextColor(primaryText: UIColor?, subText: UIColor?) -> Void {
+        cellPrimaryTextColor = primaryText
+        cellSubTextColor = subText
+        
+    }
+    
+    //MARK:- Private functions
+    func disableBottomContainer() -> Void {
+        bottomContainerMultiplier = 0
+    }
+    
+    func dismiss() -> Void {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    static func getStoryboardsBundle() -> Bundle {
+        let podBundle = Bundle(for: InnoSelectorViewController.self)
+        let bundleURL = podBundle.url(forResource: "Storyboards", withExtension: "bundle")
+        let bundle = Bundle(url: bundleURL!)!
+        
+        return bundle
+    }
+
+}
+
+
+//MARK:- Extensions
+extension InnoSelectorViewController: UITableViewDelegate, UITableViewDataSource{
+    
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return innoSelectorViewModel.dataSource.count
+    }
+    
+    
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = selectorTableView.dequeueReusableCell(withIdentifier: "Custom") as! InnoSelectorCustomCellViewController
+        cell.selectionStyle = .none
+        
+        let value = innoSelectorViewModel.dataSource[indexPath.row]
+        
+        if let color = cellPrimaryTextColor {
+            cell.mainMessageColor = color
+        }
+        
+        if let color = cellSubTextColor{
+            cell.subMessageColor = color
+        }
+        
+        cell.mainImage = innoSelectorViewModel.dataSource[indexPath.row].image
+        cell.mainMessage = innoSelectorViewModel.dataSource[indexPath.row].mainText
+        cell.subMessage = innoSelectorViewModel.dataSource[indexPath.row].subText
+        
+        if innoSelectorViewModel.selectedValues.contains(value) {
+            cell.accessoryType = .checkmark
+        }else{
+            cell.accessoryType = .none
+        }
+        
+        cell.layoutSubviews()
+        return cell
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let value = innoSelectorViewModel.dataSource[indexPath.row]
+        
+        if innoSelectorViewModel.isMultiselect{
+            // Check if present already and remove
+            if innoSelectorViewModel.selectedValues.contains(value){
+                if let index = innoSelectorViewModel.selectedValues.index(where: { (object) -> Bool in
+                    if object == value{
+                        return true
+                    }
+                    return false
+                }){
+                    if innoSelectorViewModel.selectedValues.count > innoSelectorViewModel.minSelection{
+                        innoSelectorViewModel.selectedValues.remove(at: index)
+                    }else{
+                        tableView.shake()
+                    }
+                }
+            }else{
+                if innoSelectorViewModel.selectedValues.count < innoSelectorViewModel.maxSelection{
+                    innoSelectorViewModel.selectedValues.append(value)
+                }else{
+                    
+                }
+            }
+            selectorTableView.reloadData()
+            
+        }else{
+            innoSelectorViewModel.selectedValues.removeAll()
+            innoSelectorViewModel.selectedValues.append(value)
+            applyButtonPressed(self)
+        }
+    }
+    
+}
+
+extension UIView{
+    
+    func applyShadow(cornerRadius: CGFloat?, color: UIColor?, opacity: Float?, offsetWidth: CGFloat?, offsetHeight: CGFloat?) -> Void {
+        self.layer.cornerRadius = (cornerRadius != nil) ? cornerRadius! : CGFloat(10.0)
+        self.layer.shadowColor = (color != nil) ? color?.cgColor : UIColor.black.cgColor
+        self.layer.shadowOffset = (offsetWidth != nil) ? CGSize(width: offsetWidth!, height: offsetHeight!) : CGSize(width: 0, height: 2)
+        self.layer.shadowOpacity = (opacity != nil) ? opacity! : Float(1.0)
+        
+    }
+    
+    func roundedCorners(radius: CGFloat) -> Void {
+        self.layer.cornerRadius = radius
+        self.clipsToBounds = true
+    }
+    
+    func shake() {
+        let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
+        animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionLinear)
+        animation.duration = 0.6
+        animation.values = [-15.0, 15.0, -15.0, 15.0, -10.0, 10.0, -5.0, 5.0, 0.0 ]
+        layer.add(animation, forKey: "shake")
+    }
+    
+}
+
+extension UITableView{
+    
+    func showMessage(message: String) -> Void {
+        
+        let messageLabel = UILabel(frame: CGRect(x: 0, y: self.frame.height+10, width: self.frame.width-50, height: 50))
+        messageLabel.textAlignment = .center
+        messageLabel.numberOfLines = 0
+        messageLabel.text = message
+        messageLabel.textColor = UIColor.lightGray
+        messageLabel.font = UIFont.systemFont(ofSize: 16)
+        messageLabel.center.x = self.center.x
+        
+        self.backgroundView = messageLabel
+        
+    }
+    
+    func hideMessage() -> Void {
+        self.backgroundView = nil
+    }
+    
+}
+
+extension NSLayoutConstraint {
+    
+    func setMultiplier(multiplier:CGFloat) -> NSLayoutConstraint {
+        
+        NSLayoutConstraint.deactivate([self])
+        
+        let newConstraint = NSLayoutConstraint(
+            item: firstItem!,
+            attribute: firstAttribute,
+            relatedBy: relation,
+            toItem: secondItem,
+            attribute: secondAttribute,
+            multiplier: multiplier,
+            constant: constant)
+        
+        newConstraint.priority = priority
+        newConstraint.shouldBeArchived = self.shouldBeArchived
+        newConstraint.identifier = self.identifier
+        
+        NSLayoutConstraint.activate([newConstraint])
+        return newConstraint
+    }
+}

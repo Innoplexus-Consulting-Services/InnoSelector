@@ -48,6 +48,7 @@ public class InnoSelectorViewController: UIViewController {
     
     //MARK: - Public Variable Declaration
     public var setFullScreen:Bool = false
+    public var mainContainerMultiplier:CGFloat = 0.4
     
     
     //MARK:- Local variable declaration
@@ -61,7 +62,6 @@ public class InnoSelectorViewController: UIViewController {
     
     var buttonThemeColor:UIColor? = UIColor.black
     
-    var mainContainerMultiplier:CGFloat = 0.4
     var bottomContainerMultiplier: CGFloat? = nil
     
     //MARK:- Storyboard Initialisation
@@ -142,7 +142,7 @@ public class InnoSelectorViewController: UIViewController {
     ///   - title: String to be rendered as a Title
     ///   - color: Color for the Title
     public func setTitle(title:String?, color:UIColor?) -> Void {
-        selectorTitleValue = title
+        selectorTitleValue = title != "" ? title : selectorTitleValue
         selectorTitleColor = color
     }
     

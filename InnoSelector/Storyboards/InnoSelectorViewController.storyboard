@@ -28,17 +28,11 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="goG-eO-7TF">
                                         <rect key="frame" x="0.0" y="248.5" width="320" height="211.5"/>
                                         <subviews>
-                                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1AB-dn-Vcp">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                                <items>
-                                                    <navigationItem title="SELECTOR" id="paO-cJ-zpt"/>
-                                                </items>
-                                            </navigationBar>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nJK-Qg-Z3J">
-                                                <rect key="frame" x="0.0" y="167" width="320" height="44"/>
+                                                <rect key="frame" x="0.0" y="165" width="320" height="46"/>
                                                 <subviews>
                                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UMc-qK-O5a">
-                                                        <rect key="frame" x="163" y="5" width="152" height="34"/>
+                                                        <rect key="frame" x="163" y="3" width="154" height="41"/>
                                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                         <state key="normal" title="CANCEL">
                                                             <color key="titleColor" red="1" green="0.5409764051" blue="0.84731429820000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -48,7 +42,7 @@
                                                         </connections>
                                                     </button>
                                                     <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMr-Fn-tt6">
-                                                        <rect key="frame" x="5" y="5" width="152" height="34"/>
+                                                        <rect key="frame" x="3" y="3" width="154" height="41"/>
                                                         <color key="backgroundColor" red="1" green="0.5409764051" blue="0.84731429820000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                         <state key="normal" title="APPLY">
@@ -59,21 +53,20 @@
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="DMr-Fn-tt6" secondAttribute="bottom" constant="5" id="31x-tl-qkr"/>
+                                                    <constraint firstAttribute="bottom" secondItem="DMr-Fn-tt6" secondAttribute="bottom" constant="2" id="31x-tl-qkr"/>
                                                     <constraint firstItem="UMc-qK-O5a" firstAttribute="width" secondItem="DMr-Fn-tt6" secondAttribute="width" id="7pg-SN-7ub"/>
-                                                    <constraint firstItem="UMc-qK-O5a" firstAttribute="top" secondItem="nJK-Qg-Z3J" secondAttribute="top" constant="5" id="PBg-Yt-ezB"/>
+                                                    <constraint firstItem="UMc-qK-O5a" firstAttribute="top" secondItem="nJK-Qg-Z3J" secondAttribute="top" constant="3" id="PBg-Yt-ezB"/>
                                                     <constraint firstItem="UMc-qK-O5a" firstAttribute="leading" secondItem="DMr-Fn-tt6" secondAttribute="trailing" constant="6" id="XAj-04-PNQ"/>
-                                                    <constraint firstItem="DMr-Fn-tt6" firstAttribute="leading" secondItem="nJK-Qg-Z3J" secondAttribute="leading" constant="5" id="c2r-eJ-cbG"/>
+                                                    <constraint firstItem="DMr-Fn-tt6" firstAttribute="leading" secondItem="nJK-Qg-Z3J" secondAttribute="leading" constant="3" id="c2r-eJ-cbG"/>
                                                     <constraint firstItem="UMc-qK-O5a" firstAttribute="leading" secondItem="DMr-Fn-tt6" secondAttribute="trailing" constant="6" id="ehh-SN-NWL"/>
-                                                    <constraint firstAttribute="bottom" secondItem="UMc-qK-O5a" secondAttribute="bottom" constant="5" id="jSc-qc-ARm"/>
-                                                    <constraint firstItem="DMr-Fn-tt6" firstAttribute="top" secondItem="nJK-Qg-Z3J" secondAttribute="top" constant="5" id="pPK-dV-QZY"/>
-                                                    <constraint firstAttribute="trailing" secondItem="UMc-qK-O5a" secondAttribute="trailing" constant="5" id="tlf-c9-L6y"/>
+                                                    <constraint firstAttribute="bottom" secondItem="UMc-qK-O5a" secondAttribute="bottom" constant="2" id="jSc-qc-ARm"/>
+                                                    <constraint firstItem="DMr-Fn-tt6" firstAttribute="top" secondItem="nJK-Qg-Z3J" secondAttribute="top" constant="3" id="pPK-dV-QZY"/>
+                                                    <constraint firstAttribute="trailing" secondItem="UMc-qK-O5a" secondAttribute="trailing" constant="3" id="tlf-c9-L6y"/>
                                                 </constraints>
                                             </view>
                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="mpA-bc-I9h">
-                                                <rect key="frame" x="0.0" y="44" width="320" height="123"/>
+                                                <rect key="frame" x="0.0" y="44" width="320" height="122"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <prototypes>
                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Custom" id="p64-uJ-aRK" customClass="InnoSelectorCustomCellViewController" customModule="InnoSelector">
@@ -123,15 +116,22 @@
                                                     </tableViewCell>
                                                 </prototypes>
                                             </tableView>
+                                            <navigationBar contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1AB-dn-Vcp">
+                                                <rect key="frame" x="0.0" y="-0.5" width="320" height="44"/>
+                                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <items>
+                                                    <navigationItem title="SELECTOR" id="paO-cJ-zpt"/>
+                                                </items>
+                                            </navigationBar>
                                         </subviews>
                                         <constraints>
-                                            <constraint firstItem="nJK-Qg-Z3J" firstAttribute="height" secondItem="1AB-dn-Vcp" secondAttribute="height" id="4oa-4m-Ziv"/>
+                                            <constraint firstItem="nJK-Qg-Z3J" firstAttribute="height" secondItem="1AB-dn-Vcp" secondAttribute="height" constant="2" id="4oa-4m-Ziv"/>
                                             <constraint firstItem="mpA-bc-I9h" firstAttribute="top" secondItem="1AB-dn-Vcp" secondAttribute="bottom" id="GdP-4H-azZ"/>
                                             <constraint firstItem="1AB-dn-Vcp" firstAttribute="leading" secondItem="goG-eO-7TF" secondAttribute="leading" id="Iju-KR-gAa"/>
                                             <constraint firstItem="mpA-bc-I9h" firstAttribute="leading" secondItem="goG-eO-7TF" secondAttribute="leading" id="KYd-FA-Nml"/>
                                             <constraint firstAttribute="trailing" secondItem="nJK-Qg-Z3J" secondAttribute="trailing" id="PNA-Al-wJs"/>
                                             <constraint firstAttribute="trailing" secondItem="1AB-dn-Vcp" secondAttribute="trailing" id="VMY-VZ-VkD"/>
-                                            <constraint firstItem="nJK-Qg-Z3J" firstAttribute="top" secondItem="mpA-bc-I9h" secondAttribute="bottom" id="Z50-De-mjo"/>
+                                            <constraint firstItem="nJK-Qg-Z3J" firstAttribute="top" secondItem="mpA-bc-I9h" secondAttribute="bottom" constant="-1" id="Z50-De-mjo"/>
                                             <constraint firstItem="1AB-dn-Vcp" firstAttribute="top" secondItem="goG-eO-7TF" secondAttribute="top" id="egO-1B-6Hm"/>
                                             <constraint firstItem="nJK-Qg-Z3J" firstAttribute="leading" secondItem="goG-eO-7TF" secondAttribute="leading" id="sPH-Wf-fZX"/>
                                             <constraint firstAttribute="trailing" secondItem="mpA-bc-I9h" secondAttribute="trailing" id="uPd-cK-OPR"/>

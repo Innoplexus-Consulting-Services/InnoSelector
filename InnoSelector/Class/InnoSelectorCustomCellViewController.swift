@@ -25,6 +25,8 @@ class InnoSelectorCustomCellViewController: UITableViewCell {
     
     @IBOutlet weak var cellImageViewLeadingSpace: NSLayoutConstraint!
     @IBOutlet weak var cellImageViewWidth: NSLayoutConstraint!
+    //    @IBOutlet weak var cellImageViewLeadingSpace: NSLayoutConstraint!
+//    @IBOutlet weak var cellImageViewWidth: NSLayoutConstraint!
     
     override func layoutSubviews() {
         super.layoutSubviews()

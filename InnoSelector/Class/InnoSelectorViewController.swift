@@ -12,17 +12,20 @@ public class InnoSelectorViewController: UIViewController {
     
     //MARK:- UI Declaration
     @IBOutlet var parentView: UIView!
-    @IBOutlet weak var dismissView: UIView!
+ 
     
     @IBOutlet weak var mainContainerView: UIView!
     @IBOutlet weak var mainContainerViewHeight: NSLayoutConstraint!
     
     @IBOutlet weak var selectorTitle: UINavigationBar!
+    @IBOutlet weak var selectorTopConstant: NSLayoutConstraint!
+    @IBOutlet weak var selectorHeight: NSLayoutConstraint!
     
     @IBOutlet weak var selectorTableView: UITableView!
     
     @IBOutlet weak var bottomContainerView: UIView!
     @IBOutlet weak var bottomContainerViewHeight: NSLayoutConstraint!
+    
     
     @IBOutlet weak var applyButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
@@ -48,8 +51,7 @@ public class InnoSelectorViewController: UIViewController {
     
     //MARK: - Public Variable Declaration
     public var setFullScreen:Bool = false
-    public var mainContainerMultiplier:CGFloat = 0.4
-    
+    public var selectorViewHeightConstant:CGFloat = CGFloat(260)
     
     //MARK:- Local variable declaration
     var innoSelectorViewModel = InnoSelectorCustomCellViewModel()
@@ -61,8 +63,6 @@ public class InnoSelectorViewController: UIViewController {
     var cellSubTextColor:UIColor? = UIColor.darkGray
     
     var buttonThemeColor:UIColor? = UIColor.black
-    
-    var bottomContainerMultiplier: CGFloat? = nil
     
     //MARK:- Storyboard Initialisation
     @objc public static func instantiate() -> InnoSelectorViewController {
@@ -78,20 +78,75 @@ public class InnoSelectorViewController: UIViewController {
         setupUI()
     }
     
+    func changeMainViewContraints() -> Void {
+        if #available(iOS 11.0, *) {
+            mainContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+            mainContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            
+//            if !innoSelectorViewModel.isMultiselect{
+//                mainContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+//
+//            }else{
+//                mainContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+//            }
+            
+        } else {
+            mainContainerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            mainContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        }
+        mainContainerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        mainContainerView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+    }
+    
     //MARK:- Base UI Setup
     func setupUI() -> Void {
         
-        if !innoSelectorViewModel.isMultiselect{
-            disableBottomContainer()
-        }
-        
-        if setFullScreen {
-            mainContainerMultiplier = 1
-        }
+//        if !innoSelectorViewModel.isMultiselect{
+//            disableBottomContainer()
+//        }
         
         // Main Container Properties
         mainContainerView.applyShadow(cornerRadius: 0, color: UIColor.darkGray, opacity: 0.3, offsetWidth: 0, offsetHeight: -5)
-        mainContainerViewHeight = mainContainerViewHeight.setMultiplier(multiplier: mainContainerMultiplier)
+        
+        if self.navigationController != nil {
+            if self.view.backgroundColor == UIColor.clear{
+                view.backgroundColor = UIColor.white
+//                if !innoSelectorViewModel.isMultiselect{
+//                    mainContainerView.translatesAutoresizingMaskIntoConstraints = false
+//                    mainContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+//                }
+            }
+        }else{
+//            if !innoSelectorViewModel.isMultiselect{
+//                mainContainerView.translatesAutoresizingMaskIntoConstraints = false
+//                mainContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+//            }
+        }
+        
+        if setFullScreen {
+            mainContainerView.translatesAutoresizingMaskIntoConstraints = false
+            changeMainViewContraints()
+            selectorTopConstant.constant = 0
+            if self.navigationController != nil {
+                selectorTitle.isHidden = true
+                view.backgroundColor = UIColor.white
+                selectorHeight.constant = 0
+                self.title = selectorTitleValue != nil ? selectorTitleValue : "SELECTOR"
+                let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
+                self.navigationController?.navigationBar.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
+            } else{
+                selectorTitle.topItem?.title = selectorTitleValue != nil ? selectorTitleValue : "SELECTOR"
+                let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
+                selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
+            }
+            
+        }else {
+            mainContainerView.backgroundColor = UIColor.clear
+            mainContainerViewHeight.constant = selectorViewHeightConstant
+            selectorTitle.topItem?.title = selectorTitleValue != nil ? selectorTitleValue : "SELECTOR"
+            let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
+            selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
+        }
         
         // Table View Properties
         selectorTableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -112,24 +167,12 @@ public class InnoSelectorViewController: UIViewController {
             selectorTableView.hideMessage()
         }
         
-        
-        // Bottom Container Properties
-        if bottomContainerMultiplier != nil {
-            bottomContainerViewHeight = bottomContainerViewHeight.setMultiplier(multiplier: bottomContainerMultiplier!)
-            bottomContainerView.alpha = CGFloat(0)
-            bottomContainerViewHeight.constant = 0
-        }
         bottomContainerView.layer.borderWidth = 0.5
         bottomContainerView.layer.borderColor = UIColor.darkGray.cgColor
         cancelButton.layer.borderWidth = 0.5
         cancelButton.layer.borderColor = UIColor.darkGray.cgColor
         cancelButton.setTitleColor(buttonThemeColor, for: .normal)
         applyButton.backgroundColor = buttonThemeColor
-        
-        // Title Properties
-        selectorTitle.topItem?.title = selectorTitleValue != nil ? selectorTitleValue : "SELECTOR"
-        let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
-        selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
         
     }
     
@@ -178,11 +221,16 @@ public class InnoSelectorViewController: UIViewController {
     
     //MARK:- Private functions
     func disableBottomContainer() -> Void {
-        bottomContainerMultiplier = 0
+        bottomContainerViewHeight.constant = 0
     }
     
     func dismiss() -> Void {
-        dismiss(animated: true, completion: nil)
+        if self.navigationController != nil {
+            self.navigationController?.popViewController(animated: true)
+        }else{
+            self.dismiss(animated: true, completion: nil)
+        }
+        
     }
     
     static func getStoryboardsBundle() -> Bundle {
@@ -263,7 +311,8 @@ extension InnoSelectorViewController: UITableViewDelegate, UITableViewDataSource
         }else{
             innoSelectorViewModel.selectedValues.removeAll()
             innoSelectorViewModel.selectedValues.append(value)
-            applyButtonPressed(self)
+            selectorTableView.reloadData()
+//            applyButtonPressed(self)
         }
     }
     
@@ -314,28 +363,4 @@ extension UITableView{
         self.backgroundView = nil
     }
     
-}
-
-extension NSLayoutConstraint {
-    
-    func setMultiplier(multiplier:CGFloat) -> NSLayoutConstraint {
-        
-        NSLayoutConstraint.deactivate([self])
-        
-        let newConstraint = NSLayoutConstraint(
-            item: firstItem!,
-            attribute: firstAttribute,
-            relatedBy: relation,
-            toItem: secondItem,
-            attribute: secondAttribute,
-            multiplier: multiplier,
-            constant: constant)
-        
-        newConstraint.priority = priority
-        newConstraint.shouldBeArchived = self.shouldBeArchived
-        newConstraint.identifier = self.identifier
-        
-        NSLayoutConstraint.activate([newConstraint])
-        return newConstraint
-    }
 }

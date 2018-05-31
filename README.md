@@ -12,8 +12,8 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 Customisation              |  Single-Select/Multi-Select
 :-------------------------:|:-------------------------:
-![Customisation](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip%201.gif)  |  ![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip%202.gif)
+![]()                      |  ![]()
 
 Push-View/PresentView      |  Fullscreen
 :-------------------------:|:-------------------------:
-![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip%203.gif)  |  ![](InnoSelector/Assets/Clip 3.gif)
+![]()                      |  ![]()

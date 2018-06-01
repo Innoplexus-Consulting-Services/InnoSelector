@@ -32,11 +32,11 @@ class InnoSelectorCustomCellViewController: UITableViewCell {
         super.layoutSubviews()
         
         if mainMessage != nil {
-            cellPrimaryText.attributedText = NSAttributedString(string: mainMessage!, attributes: [NSForegroundColorAttributeName: mainMessageColor])
+            cellPrimaryText.attributedText = NSAttributedString(string: mainMessage!, attributes: [NSAttributedStringKey.foregroundColor: mainMessageColor])
         }
         
         if subMessage != nil {
-            cellSubText.attributedText = NSAttributedString(string: subMessage!, attributes: [NSForegroundColorAttributeName: subMessageColor])
+            cellSubText.attributedText = NSAttributedString(string: subMessage!, attributes: [NSAttributedStringKey.foregroundColor: subMessageColor])
         }
         
         if mainImage == nil {

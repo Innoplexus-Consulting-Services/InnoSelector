@@ -83,13 +83,6 @@ public class InnoSelectorViewController: UIViewController {
             mainContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
             mainContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
             
-//            if !innoSelectorViewModel.isMultiselect{
-//                mainContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-//
-//            }else{
-//                mainContainerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-//            }
-            
         } else {
             mainContainerView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
             mainContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -101,9 +94,10 @@ public class InnoSelectorViewController: UIViewController {
     //MARK:- Base UI Setup
     func setupUI() -> Void {
         
-//        if !innoSelectorViewModel.isMultiselect{
-//            disableBottomContainer()
-//        }
+        if !innoSelectorViewModel.isMultiselect{
+            disableBottomContainer()
+            bottomContainerView.isHidden = true
+        }
         
         // Main Container Properties
         mainContainerView.applyShadow(cornerRadius: 0, color: UIColor.darkGray, opacity: 0.3, offsetWidth: 0, offsetHeight: -5)
@@ -111,16 +105,7 @@ public class InnoSelectorViewController: UIViewController {
         if self.navigationController != nil {
             if self.view.backgroundColor == UIColor.clear{
                 view.backgroundColor = UIColor.white
-//                if !innoSelectorViewModel.isMultiselect{
-//                    mainContainerView.translatesAutoresizingMaskIntoConstraints = false
-//                    mainContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-//                }
             }
-        }else{
-//            if !innoSelectorViewModel.isMultiselect{
-//                mainContainerView.translatesAutoresizingMaskIntoConstraints = false
-//                mainContainerView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-//            }
         }
         
         if setFullScreen {
@@ -132,20 +117,20 @@ public class InnoSelectorViewController: UIViewController {
                 view.backgroundColor = UIColor.white
                 selectorHeight.constant = 0
                 self.title = selectorTitleValue != nil ? selectorTitleValue : "SELECTOR"
-                let textAttributes = [NSForegroundColorAttributeName:selectorTitleColor]
-                self.navigationController?.navigationBar.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSForegroundColorAttributeName:UIColor.black]
+                let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
+                self.navigationController?.navigationBar.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
             } else{
                 selectorTitle.topItem?.title = selectorTitleValue != nil ? selectorTitleValue : "SELECTOR"
-                let textAttributes = [NSForegroundColorAttributeName:selectorTitleColor]
-                selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSForegroundColorAttributeName:UIColor.black]
+                let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
+                selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
             }
             
         }else {
             mainContainerView.backgroundColor = UIColor.clear
             mainContainerViewHeight.constant = selectorViewHeightConstant
             selectorTitle.topItem?.title = selectorTitleValue != nil ? selectorTitleValue : "SELECTOR"
-            let textAttributes = [NSForegroundColorAttributeName:selectorTitleColor]
-            selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSForegroundColorAttributeName:UIColor.black]
+            let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
+            selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
         }
         
         // Table View Properties
@@ -228,7 +213,10 @@ public class InnoSelectorViewController: UIViewController {
         if self.navigationController != nil {
             self.navigationController?.popViewController(animated: true)
         }else{
-            self.dismiss(animated: true, completion: nil)
+            DispatchQueue.main.async(execute: {
+                self.dismiss(animated: true, completion: nil)
+            })
+            
         }
         
     }
@@ -312,7 +300,7 @@ extension InnoSelectorViewController: UITableViewDelegate, UITableViewDataSource
             innoSelectorViewModel.selectedValues.removeAll()
             innoSelectorViewModel.selectedValues.append(value)
             selectorTableView.reloadData()
-//            applyButtonPressed(self)
+            applyButtonPressed(self)
         }
     }
     

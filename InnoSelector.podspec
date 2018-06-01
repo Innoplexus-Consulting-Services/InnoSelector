@@ -4,6 +4,8 @@ Pod::Spec.new do |s|
     s.ios.deployment_target = '11.3'
     s.description = "A framework for data selection which has the option for both single and multi-select functionalities. In this, you can also customise the attributes like how the view should present, what will be the title and its colour, whether the table content should have the image or not, colour for the title and subtitle of the table content, bottom theme colour and much more."
     s.summary = "InnoSelector is drop in framework to manage the filter content for projects"
+    s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
+    s.swift_version = '4.0'
     s.requires_arc = true
     s.version = "1.0"
     s.license = { :type => "MIT", :file => "LICENSE" }

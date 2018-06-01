@@ -1,6 +1,0 @@
-framework module Pods_InnoSelectorDemo2 {
-  umbrella header "Pods-InnoSelectorDemo2-umbrella.h"
-
-  export *
-  module * { export * }
-}

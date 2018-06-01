@@ -12,11 +12,11 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 Customisation              |  Single-Select/Multi-Select
 :-------------------------:|:-------------------------:
-![](/Assets/Clip1.gif)      |  ![](/Assets/Clip2.gif)
+![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip1.gif)      |  ![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip2.gif)
 
 Push-View/PresentView      |  Fullscreen
 :-------------------------:|:-------------------------:
-![](/Assets/Clip3.gif)                      |  ![](/Assets/Clip4.gif)
+![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip3.gif)                      |  ![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip4.gif)
 
 ## Requirements
 - iOS 8.0+

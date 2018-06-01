@@ -33,7 +33,7 @@ var data: [CustomDataObject] = []
 var data2: [CustomDataObject] = []
 var multiselecr: Bool = true
 
-data - [CustomDataObject(image: <#T##UIImage?#>, primaryText: <#T##String#>, subText: <#T##String?#>)]
+data = [CustomDataObject(image: <#T##UIImage?#>, primaryText: <#T##String#>, subText: <#T##String?#>)]
 
 selectorFilter.setTableContent(dataSource: data, selectedValues: data2, isMultiselect: multiselecr, minSelection: 1, maxSelection: 10)
 ```

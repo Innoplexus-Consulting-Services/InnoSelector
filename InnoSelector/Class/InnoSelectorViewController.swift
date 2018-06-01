@@ -117,20 +117,20 @@ public class InnoSelectorViewController: UIViewController {
                 view.backgroundColor = UIColor.white
                 selectorHeight.constant = 0
                 self.title = selectorTitleValue != nil ? selectorTitleValue : "SELECTOR"
-                let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
-                self.navigationController?.navigationBar.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
+                let textAttributes = [NSForegroundColorAttributeName:selectorTitleColor]
+                self.navigationController?.navigationBar.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSForegroundColorAttributeName:UIColor.black]
             } else{
                 selectorTitle.topItem?.title = selectorTitleValue != nil ? selectorTitleValue : "SELECTOR"
-                let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
-                selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
+                let textAttributes = [NSForegroundColorAttributeName:selectorTitleColor]
+                selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSForegroundColorAttributeName:UIColor.black]
             }
             
         }else {
             mainContainerView.backgroundColor = UIColor.clear
             mainContainerViewHeight.constant = selectorViewHeightConstant
             selectorTitle.topItem?.title = selectorTitleValue != nil ? selectorTitleValue : "SELECTOR"
-            let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
-            selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
+            let textAttributes = [NSForegroundColorAttributeName:selectorTitleColor]
+            selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSForegroundColorAttributeName:UIColor.black]
         }
         
         // Table View Properties

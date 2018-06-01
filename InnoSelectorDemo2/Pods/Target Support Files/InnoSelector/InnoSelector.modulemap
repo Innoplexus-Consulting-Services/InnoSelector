@@ -1,0 +1,6 @@
+framework module InnoSelector {
+  umbrella header "InnoSelector-umbrella.h"
+
+  export *
+  module * { export * }
+}

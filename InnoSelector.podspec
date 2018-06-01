@@ -19,5 +19,5 @@ Pod::Spec.new do |s|
         'InnoSelector/**/*.storyboard'
         ]
     }
-    pushed_with_swift_version = '3.0'
+    pushed_with_swift_version = '4.0'
 end

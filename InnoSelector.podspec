@@ -7,11 +7,11 @@ Pod::Spec.new do |s|
     s.pod_target_xcconfig = { 'SWIFT_VERSION' => '4.0' }
     s.swift_version = '4.0'
     s.requires_arc = true
-    s.version = "1.0"
+    s.version = "1.0.1"
     s.license = { :type => "MIT", :file => "LICENSE" }
     s.author = { "Gopinath A" => "gopinath.a@innoplexus.com" }
     s.homepage = "https://github.com/Innoplexus-Consulting-Services/InnoSelector"
-    s.source = { :git => "https://github.com/Innoplexus-Consulting-Services/InnoSelector.git", :tag => "1.01"}
+    s.source = { :git => "https://github.com/Innoplexus-Consulting-Services/InnoSelector.git", :tag => "1.0.1"}
     s.framework = ["UIKit"]
     s.source_files = ["InnoSelector/**/*.{swift}"]
     s.resource_bundles = {

@@ -11,15 +11,12 @@ Pod::Spec.new do |s|
     s.license = { :type => "MIT", :file => "LICENSE" }
     s.author = { "Gopinath A" => "gopinath.a@innoplexus.com" }
     s.homepage = "https://github.com/Innoplexus-Consulting-Services/InnoSelector"
-    s.source = { :git => "https://github.com/Innoplexus-Consulting-Services/InnoSelector.git", :tag => "1.0"}
+    s.source = { :git => "https://github.com/Innoplexus-Consulting-Services/InnoSelector.git", :tag => "1.01"}
     s.framework = ["UIKit"]
-    s.dependency 'Alamofire'
-    s.dependency 'ObjectMapper'
     s.source_files = ["InnoSelector/**/*.{swift}"]
     s.resource_bundles = {
         'Storyboards' => [
         'InnoSelector/**/*.storyboard'
         ]
     }
-    pushed_with_swift_version = '4.0'
 end

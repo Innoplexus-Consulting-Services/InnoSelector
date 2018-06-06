@@ -223,10 +223,7 @@ public class InnoSelectorViewController: UIViewController {
     
     static func getStoryboardsBundle() -> Bundle {
         let podBundle = Bundle(for: InnoSelectorViewController.self)
-        let bundleURL = podBundle.url(forResource: "Storyboards", withExtension: "bundle")
-        let bundle = Bundle(url: bundleURL!)!
-        
-        return bundle
+        return podBundle
     }
 
 }

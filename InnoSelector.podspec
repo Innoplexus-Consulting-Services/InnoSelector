@@ -14,5 +14,5 @@ Pod::Spec.new do |s|
     s.source = { :git => "https://github.com/Innoplexus-Consulting-Services/InnoSelector.git", :tag => "1.0.3"}
     s.framework = ["UIKit"]
     s.source_files = ["InnoSelector/**/*.{swift}"]
-    s.resources = ["InnoSelector/**/*.storyboard"]
+    s.resources = 'Resources/**/*.storyboard'
 end

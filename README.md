@@ -63,7 +63,11 @@ present(selectorFilter, animated: true, completion: nil)
 selectorFilter.completionHandler = { event, selectedValues in
 switch event {
 case .didApply:
-self.data2 = selectedValues
+if let selectedData = selectedValues as? [InnoData]{
+self.data2 = selectedData
+}else{
+self.data4 = selectedValues as! [String]
+}
 print(selectedValues.count)
 case .didCancel:
 print("Cancel")

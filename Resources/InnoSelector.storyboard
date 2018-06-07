@@ -42,21 +42,19 @@
                                         <rect key="frame" x="0.0" y="205" width="320" height="55"/>
                                         <subviews>
                                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UMc-qK-O5a">
-                                                <rect key="frame" x="165" y="6" width="150" height="44"/>
+                                                <rect key="frame" x="162" y="6" width="150" height="44"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="1xj-VA-LQv"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
-                                                <state key="normal" title="CANCEL">
-                                                    <color key="titleColor" red="1" green="0.5409764051" blue="0.84731429820000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                </state>
+                                                <state key="normal" title="CANCEL"/>
                                                 <connections>
                                                     <action selector="cancelButtonPressed:" destination="HW5-2U-ta7" eventType="touchUpInside" id="RsZ-jn-B1k"/>
                                                 </connections>
                                             </button>
                                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DMr-Fn-tt6">
-                                                <rect key="frame" x="5" y="6" width="150" height="44"/>
-                                                <color key="backgroundColor" red="1" green="0.5409764051" blue="0.84731429820000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <rect key="frame" x="7" y="6" width="150" height="44"/>
+                                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="44" id="lsf-PF-0aI"/>
                                                 </constraints>
@@ -69,7 +67,6 @@
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="55" id="6kx-P5-ofg"/>
                                             <constraint firstItem="DMr-Fn-tt6" firstAttribute="top" secondItem="nJK-Qg-Z3J" secondAttribute="top" constant="6" id="Ixh-sJ-Cic"/>
@@ -77,10 +74,10 @@
                                             <constraint firstItem="UMc-qK-O5a" firstAttribute="top" secondItem="nJK-Qg-Z3J" secondAttribute="top" constant="6" id="Vx4-qN-d7O"/>
                                             <constraint firstAttribute="bottom" secondItem="DMr-Fn-tt6" secondAttribute="bottom" constant="5" id="Y3u-fg-0RR"/>
                                             <constraint firstItem="UMc-qK-O5a" firstAttribute="height" secondItem="DMr-Fn-tt6" secondAttribute="height" id="db1-g1-2W0"/>
-                                            <constraint firstItem="UMc-qK-O5a" firstAttribute="leading" secondItem="DMr-Fn-tt6" secondAttribute="trailing" constant="10" id="lGi-y7-vVe"/>
-                                            <constraint firstItem="DMr-Fn-tt6" firstAttribute="leading" secondItem="nJK-Qg-Z3J" secondAttribute="leading" constant="5" id="mL6-p9-25M"/>
+                                            <constraint firstItem="UMc-qK-O5a" firstAttribute="leading" secondItem="DMr-Fn-tt6" secondAttribute="trailing" constant="5" id="lGi-y7-vVe"/>
+                                            <constraint firstItem="DMr-Fn-tt6" firstAttribute="leading" secondItem="nJK-Qg-Z3J" secondAttribute="leading" constant="7" id="mL6-p9-25M"/>
                                             <constraint firstItem="UMc-qK-O5a" firstAttribute="width" secondItem="DMr-Fn-tt6" secondAttribute="width" id="xG0-aK-ZWV"/>
-                                            <constraint firstAttribute="trailing" secondItem="UMc-qK-O5a" secondAttribute="trailing" constant="5" id="yeu-88-u7j"/>
+                                            <constraint firstAttribute="trailing" secondItem="UMc-qK-O5a" secondAttribute="trailing" constant="8" id="yeu-88-u7j"/>
                                         </constraints>
                                     </view>
                                 </subviews>

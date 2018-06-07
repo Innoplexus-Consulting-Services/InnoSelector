@@ -66,13 +66,14 @@ public class InnoSelector: UIViewController {
     
     //MARK: - Public Variable Declaration
     public var setFullScreen:Bool = false
-    public var selectorViewHeightConstant:CGFloat = CGFloat(300)
+    public var selectorViewHeight:CGFloat = CGFloat(300)
+    public var hideTopBar:Bool = false
     
     //MARK:- Local variable declaration
     var innoSelectorViewModel = InnoSelectorCustomCellViewModel()
     
     var selectorTitleColor: UIColor? = UIColor.black
-    var selectorTitleValue: String? = "SELECTOR"
+    var selectorTitleValue: String? = "Title"
     
     var cellPrimaryTextColor:UIColor? = UIColor.black
     var cellSubTextColor:UIColor? = UIColor.darkGray
@@ -116,6 +117,10 @@ public class InnoSelector: UIViewController {
             bottomContainerView.isHidden = true
         }
         
+        if hideTopBar {
+            selectorTitle.isHidden = true
+        }
+        
         // Main Container Properties
         mainContainerView.applyShadow(cornerRadius: 0, color: UIColor.darkGray, opacity: 0.3, offsetWidth: 0, offsetHeight: -5)
         
@@ -133,19 +138,19 @@ public class InnoSelector: UIViewController {
                 selectorTitle.isHidden = true
                 view.backgroundColor = UIColor.white
                 selectorHeight.constant = 0
-                self.title = selectorTitleValue != nil ? selectorTitleValue : "SELECTOR"
+                self.title = selectorTitleValue != nil ? selectorTitleValue : "Title"
                 let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
                 self.navigationController?.navigationBar.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
             } else{
-                selectorTitle.topItem?.title = selectorTitleValue != nil ? selectorTitleValue : "SELECTOR"
+                selectorTitle.topItem?.title = selectorTitleValue != nil ? selectorTitleValue : "Title"
                 let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
                 selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
             }
             
         }else {
             mainContainerView.backgroundColor = UIColor.clear
-            mainContainerViewHeight.constant = selectorViewHeightConstant
-            selectorTitle.topItem?.title = selectorTitleValue != nil ? selectorTitleValue : "SELECTOR"
+            mainContainerViewHeight.constant = selectorViewHeight
+            selectorTitle.topItem?.title = selectorTitleValue != nil ? selectorTitleValue : "Title"
             let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
             selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
         }
@@ -211,7 +216,7 @@ public class InnoSelector: UIViewController {
     ///   - isMultiselect: It will ensure that the data selection is single select or multi select
     ///   - minSelection: Minimum number of selection that the user should select
     ///   - maxSelection: Maximun number of selection that the user can select
-    public func setContent(dataSource: [Any], selectedValues:[Any] = [], isMultiselect: Bool = true, minSelection: Int = 1,maxSelection: Int = 100) -> Void {
+    public func setContent(dataSource: [Any], selectedValues: [Any] = [], isMultiselect: Bool = true, minSelection: Int = 1,maxSelection: Int = 100) -> Void {
         
         if let data = dataSource as? [InnoData] {
             isCustom = true
@@ -229,10 +234,9 @@ public class InnoSelector: UIViewController {
     /// - Parameters:
     ///   - primaryText: Color for the primary text
     ///   - subText: Color for the sub text
-    public func setTableContentTextColor(primaryText: UIColor?, subText: UIColor?) -> Void {
-        cellPrimaryTextColor = primaryText
-        cellSubTextColor = subText
-        
+    public func setContentTextColor(Title: UIColor?, subTitle: UIColor?) -> Void {
+        cellPrimaryTextColor = Title
+        cellSubTextColor = subTitle
     }
     
     
@@ -429,4 +433,16 @@ extension UITableView{
         self.backgroundView = nil
     }
     
+}
+
+extension InnoSelector{
+    
+    public func presentIn(viewController: UIViewController, completion: (() -> Swift.Void)? = nil) -> Void {
+        self.modalPresentationStyle = .overCurrentContext
+        viewController.present(self, animated: true, completion: completion)
+    }
+    
+    public func push(viewController: UIViewController, innoSelector: UIViewController) -> Void{
+        viewController.navigationController?.pushViewController(innoSelector, animated: true)
+    }
 }

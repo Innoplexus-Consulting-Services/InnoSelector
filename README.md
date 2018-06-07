@@ -1,6 +1,6 @@
 # InnoSelector
 [![Language](https://img.shields.io/badge/language-Swift-orange.svg?style=flat)](https://developer.apple.com/swift/)
-[![Supports](https://img.shields.io/badge/supports-CocoaPods%20%7C%20Carthage-green.svg?style=flat)](https://cocoapods.org/)
+[![Supports](https://img.shields.io/badge/supports-CocoaPods%20%7C%20Carthage-green.svg?style=flat)](https://cocoapods.org/pods/InnoSelector)
 [![License](https://img.shields.io/cocoapods/l/HeartLoadingView.svg?style=flat)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/cocoapods/p/HeartLoadingView.svg?style=flat)](https://developer.apple.com/)
 
@@ -52,10 +52,9 @@ selectorFilter.setContent(dataSource: data3, selectedValues: data4, isMultiselec
 var pushView: Bool = false
 
 if pushView {
-self.navigationController?.pushViewController(selectorFilter, animated: true)
+selectorFilter.push(viewController: self, innoSelector: selectorFilter)
 }else{
-selectorFilter.modalPresentationStyle = .overCurrentContext
-present(selectorFilter, animated: true, completion: nil)
+selectorFilter.presentIn(viewController: self)
 }
 ```
 - Completion Handler:
@@ -82,7 +81,7 @@ selectorFilter.setFullScreen = true
 ```
 2. Change Layout Height
 ```
-selectorFilter.selectorViewHeightConstant = 300.0
+selectorFilter.selectorViewHeight = 300.0
 ```
 3. Set Title
 ```
@@ -92,13 +91,17 @@ selectorFilter.setTitle(title: "titleString", color: titleTextColor)
 ```
 selectorFilter.setButtonThemeColor(color: UIColor.black)
 ```
-5. Set Table Theme
+5. Set Content Theme
 ```
-selectorFilter.setTableContentTextColor(primaryText: UIColor.blue, subText: UIColor.red)
+selectorFilter.setContentTextColor(Title: tablePriText, subTitle: tableSubText)
+```
+5. Hide Top Bar
+```
+selectorFilter.hideTopBar = true
 ```
 ## Installation
 
-InnoSelector is available through [CocoaPods](http://cocoapods.org). To install
+InnoSelector is available through [CocoaPods](https://cocoapods.org/pods/InnoSelector). To install
 it, simply add the following line to your Podfile:
 
 ```ruby

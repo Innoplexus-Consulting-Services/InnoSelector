@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC17981920C7ED680005D6DA /* InnoSelector.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC17981820C7ED680005D6DA /* InnoSelector.storyboard */; };
 		CCB4081F20B6D17100912E0F /* InnoSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = CCB4081D20B6D17100912E0F /* InnoSelector.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		CCB4082720B6D1F700912E0F /* InnoSelectorViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CCB4082620B6D1F700912E0F /* InnoSelectorViewController.storyboard */; };
-		CCB4082A20B6DD3200912E0F /* InnoSelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB4082920B6DD3200912E0F /* InnoSelectorViewController.swift */; };
+		CCB4082A20B6DD3200912E0F /* InnoSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB4082920B6DD3200912E0F /* InnoSelector.swift */; };
 		CCB4084D20B7DFB400912E0F /* InnoSelectorCustomCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB4084C20B7DFB300912E0F /* InnoSelectorCustomCellViewController.swift */; };
 		CCB4085120B8352400912E0F /* InnoSelectorCustomCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCB4085020B8352400912E0F /* InnoSelectorCustomCellViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CC17981820C7ED680005D6DA /* InnoSelector.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InnoSelector.storyboard; sourceTree = "<group>"; };
 		CCB4081A20B6D17100912E0F /* InnoSelector.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = InnoSelector.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCB4081D20B6D17100912E0F /* InnoSelector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InnoSelector.h; sourceTree = "<group>"; };
 		CCB4081E20B6D17100912E0F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CCB4082620B6D1F700912E0F /* InnoSelectorViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = InnoSelectorViewController.storyboard; sourceTree = "<group>"; };
-		CCB4082920B6DD3200912E0F /* InnoSelectorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnoSelectorViewController.swift; sourceTree = "<group>"; };
+		CCB4082920B6DD3200912E0F /* InnoSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnoSelector.swift; sourceTree = "<group>"; };
 		CCB4084C20B7DFB300912E0F /* InnoSelectorCustomCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnoSelectorCustomCellViewController.swift; sourceTree = "<group>"; };
 		CCB4085020B8352400912E0F /* InnoSelectorCustomCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InnoSelectorCustomCellViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -35,6 +35,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CC17981720C7ED680005D6DA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				CC17981820C7ED680005D6DA /* InnoSelector.storyboard */,
+			);
+			path = Resources;
+			sourceTree = SOURCE_ROOT;
+		};
 		CCB4081020B6D17100912E0F = {
 			isa = PBXGroup;
 			children = (
@@ -56,25 +64,17 @@
 			children = (
 				CCB4084F20B834E200912E0F /* Model */,
 				CCB4082820B6DD0600912E0F /* Class */,
-				CCB4082520B6D1D200912E0F /* Storyboards */,
+				CC17981720C7ED680005D6DA /* Resources */,
 				CCB4081D20B6D17100912E0F /* InnoSelector.h */,
 				CCB4081E20B6D17100912E0F /* Info.plist */,
 			);
 			path = InnoSelector;
 			sourceTree = "<group>";
 		};
-		CCB4082520B6D1D200912E0F /* Storyboards */ = {
-			isa = PBXGroup;
-			children = (
-				CCB4082620B6D1F700912E0F /* InnoSelectorViewController.storyboard */,
-			);
-			path = Storyboards;
-			sourceTree = "<group>";
-		};
 		CCB4082820B6DD0600912E0F /* Class */ = {
 			isa = PBXGroup;
 			children = (
-				CCB4082920B6DD3200912E0F /* InnoSelectorViewController.swift */,
+				CCB4082920B6DD3200912E0F /* InnoSelector.swift */,
 				CCB4084C20B7DFB300912E0F /* InnoSelectorCustomCellViewController.swift */,
 			);
 			path = Class;
@@ -157,7 +157,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CCB4082720B6D1F700912E0F /* InnoSelectorViewController.storyboard in Resources */,
+				CC17981920C7ED680005D6DA /* InnoSelector.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,7 +170,7 @@
 			files = (
 				CCB4085120B8352400912E0F /* InnoSelectorCustomCellViewModel.swift in Sources */,
 				CCB4084D20B7DFB400912E0F /* InnoSelectorCustomCellViewController.swift in Sources */,
-				CCB4082A20B6DD3200912E0F /* InnoSelectorViewController.swift in Sources */,
+				CCB4082A20B6DD3200912E0F /* InnoSelector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

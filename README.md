@@ -25,19 +25,28 @@ Push-View/PresentView      |  Fullscreen
 ## Usage
 - Initialization:
 ```
-let selectorFilter = InnoSelectorViewController.instantiate()
+let selectorFilter = InnoSelector.instantiate()
 ```
 - Passing Data:
+For now we are supporting only [Strings] and [CustomObjects]
 ```
-var data: [CustomDataObject] = []
-var data2: [CustomDataObject] = []
+var data: [InnoData] = []
+var data2: [InnoData] = []
+var data3:[String] =  []
+var data4:[String] = []
 var multiselecr: Bool = true
 
 data = [CustomDataObject(image: <#T##UIImage?#>, primaryText: <#T##String#>, subText: <#T##String?#>)]
-
-selectorFilter.setTableContent(dataSource: data, selectedValues: data2, isMultiselect: multiselecr, minSelection: 1, maxSelection: 10)
+data3 = ["Gopi", "Asmita", "Jassi", "Manoj", "Dhiraj", "Suraj"]
 ```
-
+For [Custom Data]
+```
+selectorFilter.setContent(dataSource: data, selectedValues: data2, isMultiselect: multiselecr, minSelection: 1, maxSelection: 10)
+```
+For [String]
+```
+selectorFilter.setContent(dataSource: data3, selectedValues: data4, isMultiselect: multiselecr, minSelection: 1, maxSelection: 10)
+```
 - Presenting View:
 ```
 var pushView: Bool = false

@@ -8,7 +8,7 @@
 
 import UIKit
 
-public class InnoSelectorViewController: UIViewController {
+public class InnoSelector: UIViewController {
     
     //MARK:- UI Declaration
     @IBOutlet var parentView: UIView!
@@ -32,26 +32,41 @@ public class InnoSelectorViewController: UIViewController {
     
     //MARK:- Button Press Functionalities
     @IBAction func applyButtonPressed(_ sender: Any) {
-        if innoSelectorViewModel.selectedValues.count != 0  {
-            completionHandler!(.didApply, innoSelectorViewModel.selectedValues)
-            dismiss()
+        if isCustom{
+            if innoSelectorViewModel.selectedValuesCustom.count != 0  {
+                completionHandler!(.didApply, innoSelectorViewModel.selectedValuesCustom)
+                dismiss()
+            }else {
+                selectorTableView.shake()
+            }
         }else {
-            selectorTableView.shake()
+            if innoSelectorViewModel.selectedValues.count != 0  {
+                completionHandler!(.didApply, innoSelectorViewModel.selectedValues)
+                dismiss()
+            }else {
+                selectorTableView.shake()
+            }
         }
+        
         
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
-        completionHandler!(.didCancel, innoSelectorViewModel.selectedValues)
-        dismiss()
+        if isCustom{
+            completionHandler!(.didCancel, innoSelectorViewModel.selectedValuesCustom)
+            dismiss()
+        }else{
+            completionHandler!(.didCancel, innoSelectorViewModel.selectedValues)
+            dismiss()
+        }
     }
     
     //MARK:- Completion Handler
-    public var completionHandler:((SelectorFilterEvent, [CustomDataObject]) -> Void)?
+    public var completionHandler:((SelectorFilterEvent, [Any]) -> Void)?
     
     //MARK: - Public Variable Declaration
     public var setFullScreen:Bool = false
-    public var selectorViewHeightConstant:CGFloat = CGFloat(260)
+    public var selectorViewHeightConstant:CGFloat = CGFloat(300)
     
     //MARK:- Local variable declaration
     var innoSelectorViewModel = InnoSelectorCustomCellViewModel()
@@ -64,11 +79,13 @@ public class InnoSelectorViewController: UIViewController {
     
     var buttonThemeColor:UIColor? = UIColor.black
     
+    var isCustom:Bool = false
+    
     //MARK:- Storyboard Initialisation
-    @objc public static func instantiate() -> InnoSelectorViewController {
+    @objc public static func instantiate() -> InnoSelector {
         let storyboardsBundle = getStoryboardsBundle()
-        let storyboard:UIStoryboard = UIStoryboard(name: "InnoSelectorViewController", bundle: storyboardsBundle)
-        let popOverAlertViewController = storyboard.instantiateViewController(withIdentifier: "InnoSelectorViewController") as! InnoSelectorViewController
+        let storyboard:UIStoryboard = UIStoryboard(name: "InnoSelector", bundle: storyboardsBundle)
+        let popOverAlertViewController = storyboard.instantiateViewController(withIdentifier: "InnoSelector") as! InnoSelector
         
         return popOverAlertViewController
     }
@@ -135,12 +152,17 @@ public class InnoSelectorViewController: UIViewController {
         
         // Table View Properties
         selectorTableView.tableFooterView = UIView(frame: CGRect.zero)
-        selectorTableView.rowHeight = CGFloat(44)
+//        selectorTableView.rowHeight = CGFloat(44)
         selectorTableView.delegate = self
         selectorTableView.dataSource = self
         
         // Button Configuration
-        let count = innoSelectorViewModel.dataSource.count
+        var count = 0
+        if isCustom {
+            count = innoSelectorViewModel.dataSourceCustom.count
+        }else{
+            count = innoSelectorViewModel.dataSource.count
+        }
         if count == 0{
             applyButton.isUserInteractionEnabled = false
             applyButton.alpha = 0.2
@@ -189,8 +211,17 @@ public class InnoSelectorViewController: UIViewController {
     ///   - isMultiselect: It will ensure that the data selection is single select or multi select
     ///   - minSelection: Minimum number of selection that the user should select
     ///   - maxSelection: Maximun number of selection that the user can select
-    public func setTableContent(dataSource: [CustomDataObject], selectedValues:[CustomDataObject] = [], isMultiselect: Bool, minSelection: Int,maxSelection: Int) -> Void {
-        innoSelectorViewModel = InnoSelectorCustomCellViewModel(dataSource: dataSource, selectedValues: selectedValues, isMultiselect: isMultiselect, minSelection: minSelection, maxSelection: maxSelection)
+    public func setContent(dataSource: [Any], selectedValues:[Any] = [], isMultiselect: Bool = true, minSelection: Int = 1,maxSelection: Int = 100) -> Void {
+        
+        if let data = dataSource as? [InnoData] {
+            isCustom = true
+            // obj is a string array. Do something with stringArray
+            innoSelectorViewModel = InnoSelectorCustomCellViewModel(dataSource: data, selectedValues: selectedValues as! [InnoData], isMultiselect: isMultiselect, minSelection: minSelection, maxSelection: maxSelection)
+        }
+        else if let data = dataSource as? [String] {
+            innoSelectorViewModel = InnoSelectorCustomCellViewModel(dataSource: data, selectedValues: selectedValues as! [String], isMultiselect: isMultiselect, minSelection: minSelection, maxSelection: maxSelection)
+        }
+        
     }
     
     /// It will set the text color for the conten in the table view
@@ -203,6 +234,7 @@ public class InnoSelectorViewController: UIViewController {
         cellSubTextColor = subText
         
     }
+    
     
     //MARK:- Private functions
     func disableBottomContainer() -> Void {
@@ -222,7 +254,7 @@ public class InnoSelectorViewController: UIViewController {
     }
     
     static func getStoryboardsBundle() -> Bundle {
-        let podBundle = Bundle(for: InnoSelectorViewController.self)
+        let podBundle = Bundle(for: InnoSelector.self)
         return podBundle
     }
 
@@ -230,74 +262,123 @@ public class InnoSelectorViewController: UIViewController {
 
 
 //MARK:- Extensions
-extension InnoSelectorViewController: UITableViewDelegate, UITableViewDataSource{
+extension InnoSelector: UITableViewDelegate, UITableViewDataSource{
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return innoSelectorViewModel.dataSource.count
+        if isCustom {
+            return innoSelectorViewModel.dataSourceCustom.count
+        }else {
+            return innoSelectorViewModel.dataSource.count
+        }
+        
     }
     
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = selectorTableView.dequeueReusableCell(withIdentifier: "Custom") as! InnoSelectorCustomCellViewController
-        cell.selectionStyle = .none
+        var cell = tableView.dequeueReusableCell(withIdentifier: "Custom")
+        if cell == nil {
+            cell = UITableViewCell(style: .subtitle, reuseIdentifier: "Custom")
+        }
+        cell?.selectionStyle = .none
         
-        let value = innoSelectorViewModel.dataSource[indexPath.row]
-        
-        if let color = cellPrimaryTextColor {
-            cell.mainMessageColor = color
+        if isCustom {
+            let value = innoSelectorViewModel.dataSourceCustom[indexPath.row]
+            cell?.imageView?.sizeToFit()
+            cell?.textLabel?.textColor = cellPrimaryTextColor
+            cell?.detailTextLabel?.textColor = cellSubTextColor
+            cell?.imageView?.image = innoSelectorViewModel.dataSourceCustom[indexPath.row].image
+            cell?.textLabel?.text = innoSelectorViewModel.dataSourceCustom[indexPath.row].mainText
+            cell?.detailTextLabel?.text = innoSelectorViewModel.dataSourceCustom[indexPath.row].subText
+            
+            if innoSelectorViewModel.selectedValuesCustom.contains(value) {
+                cell?.accessoryType = .checkmark
+            }else{
+                cell?.accessoryType = .none
+            }
+            return cell!
+        } else {
+            let value = innoSelectorViewModel.dataSource[indexPath.row]
+            cell?.textLabel?.textColor = cellPrimaryTextColor
+            cell?.textLabel?.text = innoSelectorViewModel.dataSource[indexPath.row]
+            
+            if innoSelectorViewModel.selectedValues.contains(value) {
+                cell?.accessoryType = .checkmark
+            }else{
+                cell?.accessoryType = .none
+            }
+            return cell!
         }
         
-        if let color = cellSubTextColor{
-            cell.subMessageColor = color
-        }
-        
-        cell.mainImage = innoSelectorViewModel.dataSource[indexPath.row].image
-        cell.mainMessage = innoSelectorViewModel.dataSource[indexPath.row].mainText
-        cell.subMessage = innoSelectorViewModel.dataSource[indexPath.row].subText
-        
-        if innoSelectorViewModel.selectedValues.contains(value) {
-            cell.accessoryType = .checkmark
-        }else{
-            cell.accessoryType = .none
-        }
-        
-        cell.layoutSubviews()
-        return cell
     }
     
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let value = innoSelectorViewModel.dataSource[indexPath.row]
-        
-        if innoSelectorViewModel.isMultiselect{
-            // Check if present already and remove
-            if innoSelectorViewModel.selectedValues.contains(value){
-                if let index = innoSelectorViewModel.selectedValues.index(where: { (object) -> Bool in
-                    if object == value{
-                        return true
-                    }
-                    return false
-                }){
-                    if innoSelectorViewModel.selectedValues.count > innoSelectorViewModel.minSelection{
-                        innoSelectorViewModel.selectedValues.remove(at: index)
-                    }else{
-                        tableView.shake()
-                    }
-                }
-            }else{
-                if innoSelectorViewModel.selectedValues.count < innoSelectorViewModel.maxSelection{
-                    innoSelectorViewModel.selectedValues.append(value)
-                }else{
-                    
-                }
-            }
-            selectorTableView.reloadData()
+        if isCustom {
+            let value = innoSelectorViewModel.dataSourceCustom[indexPath.row]
             
-        }else{
-            innoSelectorViewModel.selectedValues.removeAll()
-            innoSelectorViewModel.selectedValues.append(value)
-            selectorTableView.reloadData()
-            applyButtonPressed(self)
+            if innoSelectorViewModel.isMultiselect{
+                // Check if present already and remove
+                if innoSelectorViewModel.selectedValuesCustom.contains(value){
+                    if let index = innoSelectorViewModel.selectedValuesCustom.index(where: { (object) -> Bool in
+                        if object == value{
+                            return true
+                        }
+                        return false
+                    }){
+                        if innoSelectorViewModel.selectedValuesCustom.count > innoSelectorViewModel.minSelection{
+                            innoSelectorViewModel.selectedValuesCustom.remove(at: index)
+                        }else{
+                            tableView.shake()
+                        }
+                    }
+                }else{
+                    if innoSelectorViewModel.selectedValuesCustom.count < innoSelectorViewModel.maxSelection{
+                        innoSelectorViewModel.selectedValuesCustom.append(value)
+                    }else{
+                        
+                    }
+                }
+                selectorTableView.reloadData()
+                
+            }else{
+                innoSelectorViewModel.selectedValuesCustom.removeAll()
+                innoSelectorViewModel.selectedValuesCustom.append(value)
+                selectorTableView.reloadData()
+                applyButtonPressed(self)
+            }
+        } else {
+            let value = innoSelectorViewModel.dataSource[indexPath.row]
+            
+            if innoSelectorViewModel.isMultiselect{
+                // Check if present already and remove
+                if innoSelectorViewModel.selectedValues.contains(value){
+                    if let index = innoSelectorViewModel.selectedValues.index(where: { (object) -> Bool in
+                        if object == value{
+                            return true
+                        }
+                        return false
+                    }){
+                        if innoSelectorViewModel.selectedValues.count > innoSelectorViewModel.minSelection{
+                            innoSelectorViewModel.selectedValues.remove(at: index)
+                        }else{
+                            tableView.shake()
+                        }
+                    }
+                }else{
+                    if innoSelectorViewModel.selectedValues.count < innoSelectorViewModel.maxSelection{
+                        innoSelectorViewModel.selectedValues.append(value)
+                    }else{
+                        
+                    }
+                }
+                selectorTableView.reloadData()
+                
+            }else{
+                innoSelectorViewModel.selectedValues.removeAll()
+                innoSelectorViewModel.selectedValues.append(value)
+                selectorTableView.reloadData()
+                applyButtonPressed(self)
+            }
         }
     }
     

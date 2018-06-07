@@ -6,12 +6,14 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Inno Selector-->
         <scene sceneID="hbI-YS-ha1">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xog-jp-ytU" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="InnoSelector" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HW5-2U-ta7" customClass="InnoSelector" customModule="InnoSelector" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Gzn-O2-gdG"/>
@@ -21,6 +23,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ato-zp-J8Z">
+                                <rect key="frame" x="16" y="20" width="288" height="460"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="goG-eO-7TF">
                                 <rect key="frame" x="0.0" y="220" width="320" height="260"/>
                                 <subviews>
@@ -100,7 +106,11 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="goG-eO-7TF" firstAttribute="leading" secondItem="9x2-7b-rwR" secondAttribute="leading" id="2s7-ab-jfB"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ato-zp-J8Z" secondAttribute="trailing" id="LYX-uI-PSm"/>
                             <constraint firstItem="0N1-Th-qaL" firstAttribute="top" secondItem="goG-eO-7TF" secondAttribute="bottom" id="acM-zo-VeL"/>
+                            <constraint firstItem="ato-zp-J8Z" firstAttribute="leading" secondItem="9x2-7b-rwR" secondAttribute="leadingMargin" id="cfb-5w-cyj"/>
+                            <constraint firstItem="ato-zp-J8Z" firstAttribute="top" secondItem="Gzn-O2-gdG" secondAttribute="bottom" id="nun-2h-XR8"/>
+                            <constraint firstItem="0N1-Th-qaL" firstAttribute="top" secondItem="ato-zp-J8Z" secondAttribute="bottom" id="sH0-Wk-bUG"/>
                             <constraint firstAttribute="trailing" secondItem="goG-eO-7TF" secondAttribute="trailing" id="vt5-Po-wGg"/>
                         </constraints>
                     </view>
@@ -110,6 +120,7 @@
                         <outlet property="bottomContainerView" destination="nJK-Qg-Z3J" id="IzA-ag-I9g"/>
                         <outlet property="bottomContainerViewHeight" destination="6kx-P5-ofg" id="Yp0-m8-ZO7"/>
                         <outlet property="cancelButton" destination="UMc-qK-O5a" id="hoN-P7-61O"/>
+                        <outlet property="dismissView" destination="ato-zp-J8Z" id="Qce-od-wtZ"/>
                         <outlet property="mainContainerView" destination="goG-eO-7TF" id="nIr-Gj-EFa"/>
                         <outlet property="mainContainerViewHeight" destination="VGO-1v-9uz" id="aCb-tt-iyk"/>
                         <outlet property="parentView" destination="9x2-7b-rwR" id="5Ox-z6-hXI"/>
@@ -119,7 +130,6 @@
                         <outlet property="selectorTopConstant" destination="97C-gv-f7A" id="5kQ-FB-Tam"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Xog-jp-ytU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1584.375" y="-331.25"/>
         </scene>

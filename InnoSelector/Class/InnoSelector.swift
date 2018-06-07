@@ -26,7 +26,7 @@ public class InnoSelector: UIViewController {
     @IBOutlet weak var bottomContainerView: UIView!
     @IBOutlet weak var bottomContainerViewHeight: NSLayoutConstraint!
     
-    
+    @IBOutlet weak var dismissView: UIView!
     @IBOutlet weak var applyButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
@@ -185,6 +185,9 @@ public class InnoSelector: UIViewController {
         cancelButton.layer.borderColor = UIColor.darkGray.cgColor
         cancelButton.setTitleColor(buttonThemeColor, for: .normal)
         applyButton.backgroundColor = buttonThemeColor
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cancelButtonPressed(_:)))
+        dismissView.addGestureRecognizer(tapGesture)
         
     }
     

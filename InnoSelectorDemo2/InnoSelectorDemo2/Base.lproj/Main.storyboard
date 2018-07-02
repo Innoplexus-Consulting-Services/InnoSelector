@@ -206,7 +206,7 @@
                                     <action selector="setFullscreen:" destination="BYZ-38-t0r" eventType="valueChanged" id="DjY-w7-yeV"/>
                                 </connections>
                             </switch>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VsO-7J-J6X">
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="VsO-7J-J6X">
                                 <rect key="frame" x="163" y="313" width="51" height="31"/>
                                 <connections>
                                     <action selector="multiselect:" destination="BYZ-38-t0r" eventType="valueChanged" id="IHX-qU-NdA"/>
@@ -230,6 +230,17 @@
                                 <color key="textColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1L3-qh-fwq">
+                                <rect key="frame" x="16" y="391" width="288" height="32"/>
+                                <color key="backgroundColor" red="0.0" green="0.58980089430000004" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <state key="normal" title="Pop Selector">
+                                    <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="popSelector:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nq8-dh-dGS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -249,6 +260,7 @@
                             <constraint firstItem="d5J-y9-M8E" firstAttribute="top" secondItem="y0B-3g-PYv" secondAttribute="bottom" constant="13" id="PC4-53-mkK"/>
                             <constraint firstItem="bSi-iG-2Fh" firstAttribute="top" secondItem="75T-tU-hrG" secondAttribute="bottom" constant="8" id="Pw8-DO-A6v"/>
                             <constraint firstItem="75T-tU-hrG" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Ric-ee-CdE"/>
+                            <constraint firstItem="1L3-qh-fwq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="T8B-tv-er1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="csd-PJ-gap" secondAttribute="trailing" constant="16" id="UAd-7t-WTg"/>
                             <constraint firstItem="d5J-y9-M8E" firstAttribute="leading" secondItem="VsO-7J-J6X" secondAttribute="trailing" constant="8" id="Ue5-xS-BxI"/>
                             <constraint firstItem="DK1-cZ-z64" firstAttribute="bottom" secondItem="y0B-3g-PYv" secondAttribute="bottom" constant="-110" id="Wss-7L-Mr4"/>
@@ -259,10 +271,12 @@
                             <constraint firstItem="y0B-3g-PYv" firstAttribute="top" secondItem="DK1-cZ-z64" secondAttribute="bottom" constant="8" id="efi-bW-pYN"/>
                             <constraint firstItem="uBh-4A-ShD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="fpb-t5-adG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="d5J-y9-M8E" secondAttribute="trailing" constant="16" id="l7d-jC-TBi"/>
+                            <constraint firstItem="1L3-qh-fwq" firstAttribute="top" secondItem="csd-PJ-gap" secondAttribute="bottom" constant="3" id="lEF-ac-DRz"/>
                             <constraint firstItem="csd-PJ-gap" firstAttribute="top" secondItem="VsO-7J-J6X" secondAttribute="bottom" constant="8" id="nde-PR-bIB"/>
                             <constraint firstItem="uBh-4A-ShD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20" id="sC3-Qa-3gI"/>
                             <constraint firstItem="y0B-3g-PYv" firstAttribute="top" secondItem="DK1-cZ-z64" secondAttribute="bottom" constant="8" id="vtM-7O-ELw"/>
                             <constraint firstItem="3MU-8f-eqA" firstAttribute="leading" secondItem="bSi-iG-2Fh" secondAttribute="trailing" constant="8" id="wDg-XW-eiX"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1L3-qh-fwq" secondAttribute="trailing" constant="16" id="xhh-m6-RDs"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -271,6 +285,7 @@
                         <outlet property="bottomView" destination="DK1-cZ-z64" id="bsN-id-zRQ"/>
                         <outlet property="buttonColor" destination="EyJ-c6-flY" id="OzO-RD-Tsf"/>
                         <outlet property="buttonInfoLable" destination="r4f-ZS-TUs" id="wwC-T3-Cib"/>
+                        <outlet property="popButton" destination="1L3-qh-fwq" id="uLW-mo-Rr5"/>
                         <outlet property="showButton" destination="csd-PJ-gap" id="tpq-pX-q8e"/>
                         <outlet property="tableInfoLable" destination="xN9-fR-2yD" id="f16-h4-3Xw"/>
                         <outlet property="tablePriColor" destination="kPT-AQ-v4k" id="jb5-nI-ju2"/>

@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "86AB8D277C3928E33A37CA2241D32F3D"
+               BlueprintIdentifier = "21FC0F2AC15818263C9ED443F9BD6F64"
                BlueprintName = "InnoSelector"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "InnoSelector.framework">

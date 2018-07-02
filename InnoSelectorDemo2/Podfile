@@ -6,7 +6,7 @@ target 'InnoSelectorDemo2' do
   use_frameworks!
 
   # Pods for InnoSelectorDemo2
-  #pod 'InnoSelector', :path => '~/Documents/Innoplexus Projects/InnoSelector'
-  pod 'InnoSelector'
+  pod 'InnoSelector', :path => '~/Documents/Innoplexus Projects/InnoSelector Originals/InnoSelector'
+  #pod 'InnoSelector'
 
 end

@@ -47,8 +47,6 @@ public class InnoSelector: UIViewController {
                 selectorTableView.shake()
             }
         }
-        
-        
     }
     
     @IBAction func cancelButtonPressed(_ sender: Any) {
@@ -69,26 +67,34 @@ public class InnoSelector: UIViewController {
     public var selectorViewHeight:CGFloat = CGFloat(300)
     public var hideTopBar:Bool = false
     
-    //MARK:- Local variable declaration
-    var innoSelectorViewModel = InnoSelectorCustomCellViewModel()
-    
-    var selectorTitleColor: UIColor? = UIColor.black
-    var selectorTitleValue: String? = "Title"
-    
-    var cellPrimaryTextColor:UIColor? = UIColor.black
-    var cellSubTextColor:UIColor? = UIColor.darkGray
-    
-    var buttonThemeColor:UIColor? = UIColor.black
-    
-    var isCustom:Bool = false
-    
     //MARK:- Storyboard Initialisation
-    @objc public static func instantiate() -> InnoSelector {
+    
+    public static func bottomSheet() -> InnoSelector {
+        
         let storyboardsBundle = getStoryboardsBundle()
         let storyboard:UIStoryboard = UIStoryboard(name: "InnoSelector", bundle: storyboardsBundle)
-        let popOverAlertViewController = storyboard.instantiateViewController(withIdentifier: "InnoSelector") as! InnoSelector
+        let alertViewController = storyboard.instantiateViewController(withIdentifier: "InnoSelector") as! InnoSelector
+        
+        return alertViewController
+    }
+    
+    public static func popOver() -> PopOverInnoSelector {
+        
+        let storyboardsBundle = getStoryboardsBundle()
+        let storyboard:UIStoryboard = UIStoryboard(name: "InnoSelector", bundle: storyboardsBundle)
+        let popOverAlertViewController = storyboard.instantiateViewController(withIdentifier: "PopOverInnoSelector") as! PopOverInnoSelector
+        
+        popOverAlertViewController.modalPresentationStyle = UIModalPresentationStyle.popover
+        popOverAlertViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.init(rawValue: 3)
+        
+        // arrow color
+        popOverAlertViewController.popoverPresentationController?.backgroundColor = UIColor.white
         
         return popOverAlertViewController
+    }
+    
+    public static func navigationDropDown() -> DropDownSelector{
+        return dropDownSelector
     }
     
     override public func viewDidLoad() {
@@ -142,6 +148,8 @@ public class InnoSelector: UIViewController {
                 let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
                 self.navigationController?.navigationBar.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]
             } else{
+                selectorTitle.isHidden = true
+                selectorHeight.constant = 0
                 selectorTitle.topItem?.title = selectorTitleValue != nil ? selectorTitleValue : "Title"
                 let textAttributes = [NSAttributedStringKey.foregroundColor:selectorTitleColor]
                 selectorTitle.titleTextAttributes = selectorTitleColor != nil ? textAttributes : [NSAttributedStringKey.foregroundColor:UIColor.black]

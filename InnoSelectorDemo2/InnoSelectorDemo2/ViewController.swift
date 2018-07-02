@@ -9,12 +9,18 @@
 import UIKit
 import InnoSelector
 
-class ViewController: UIViewController{
+class ViewController: UIViewController, UIAdaptivePresentationControllerDelegate{
     
-    var data: [CustomDataObject] = []
-    var data2: [CustomDataObject] = []
-    var multiselecr: Bool = true
+    var data: [InnoData] = []
+    var data2: [InnoData] = []
+    var data3:[String] =  []
+    var data4:[String] = []
+    
+    var multiselecr: Bool = false
     var pushView: Bool = false
+    
+    var gopi:DropDownSelector? = nil
+    
 
     @IBOutlet weak var titleInfoLable: UILabel!
     @IBOutlet weak var buttonInfoLable: UILabel!
@@ -32,24 +38,31 @@ class ViewController: UIViewController{
     @IBOutlet weak var tableSubColor: UISegmentedControl!
     
     @IBOutlet weak var showButton: UIButton!
+    @IBOutlet weak var popButton: UIButton!
     
     var titleTextColor = UIColor.blue
     var tablePriText = UIColor.blue
     var tableSubText = UIColor.blue
     var buttonThemeColor = UIColor.blue
     
-    var titleString = "SELECTOR"
+    var titleString = "Title"
     var setFullScreen:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.isUserInteractionEnabled = true
         self.hideKeyboardWhenTappedAround()
+        let leftBarButtonItem:UIBarButtonItem = UIBarButtonItem(title: "Drop Down", style: .plain, target: self, action: #selector(ViewController.performTask))
+        let barButtonItem:UIBarButtonItem = UIBarButtonItem(title: "Pop Selector", style: .plain, target: self, action: #selector(ViewController.openAlert(sender:)))
+        self.navigationItem.rightBarButtonItem = barButtonItem
+        self.navigationItem.leftBarButtonItem = leftBarButtonItem
         
         self.title = "InnoSelector"
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:titleTextColor]
         setConerRadius()
         
-        data =  [CustomDataObject(image: #imageLiteral(resourceName: "far_cry_3_beach_game_graphics_hdr_95932_1920x1080"), primaryText: "Farcry 3", subText: "Ubisoft"), CustomDataObject(image: nil, primaryText: "Content without Image", subText: "InnoSelector"), CustomDataObject(image: #imageLiteral(resourceName: "far_cry_primal_action_adventure_ubisoft_montreal_106127_1920x1190"), primaryText: "Farcry Primal", subText: "Ubisoft"),CustomDataObject(image: #imageLiteral(resourceName: "tomb_raider_definitive_edition_crystal_dynamics_lara_croft_93180_2880x1800"), primaryText: "Tomb Raider", subText: "Square Enix"),CustomDataObject(image: nil, primaryText: "Content without Image and SubText", subText: nil)]
+        data3 = ["Gopi", "Asmita", "Jassi", "Manoj", "Dhiraj", "Suraj"]
+        data =  [InnoData(image: #imageLiteral(resourceName: "far_cry_3_beach_game_graphics_hdr_95932_1920x1080"), mainText: "Farcry 3", subText: "Ubisoft"), InnoData(image: nil, mainText: "Content without Image", subText: "InnoSelector"), InnoData(image: #imageLiteral(resourceName: "far_cry_primal_action_adventure_ubisoft_montreal_106127_1920x1190"), mainText: "Farcry Primal", subText: "Ubisoft"),InnoData(image: #imageLiteral(resourceName: "tomb_raider_definitive_edition_crystal_dynamics_lara_croft_93180_2880x1800"), mainText: "Tomb Raider", subText: "Square Enix"),InnoData(image: nil, mainText: "Content without Image and SubText", subText: nil)]
         
     }
     
@@ -65,6 +78,10 @@ class ViewController: UIViewController{
         showButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         showButton.layer.cornerRadius = 5
         showButton.layer.masksToBounds = true
+        
+        popButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        popButton.layer.cornerRadius = 5
+        popButton.layer.masksToBounds = true
         
     }
     @IBAction func titleColorChanges(_ sender: Any) {
@@ -137,35 +154,108 @@ class ViewController: UIViewController{
         }
     }
     
-    @IBAction func showSelector(_ sender: Any) {
-        let selectorFilter = InnoSelectorViewController.instantiate()
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:titleTextColor]
-        titleString = titleText.text!
+    @objc public func openAlert(sender:Any) {
+        let selectorFilter = InnoSelector.popOver()
+        
+        if let whatSender = sender as? UIBarButtonItem{
+            selectorFilter.popoverPresentationController?.barButtonItem = whatSender
+        }else{
+            selectorFilter.popoverPresentationController?.sourceView = sender as? UIView
+        }
+        selectorFilter.preferredContentSize = CGSize(width: 300, height: 55 * (data3.count - 1))
+        selectorFilter.presentationController?.delegate = self
+        
+        selectorFilter.setContent(dataSource: data3, selectedValues: data4, isMultiselect: multiselecr, minSelection: 1, maxSelection: 10)
+        
+        selectorFilter.setButtonThemeColor(color: buttonThemeColor)
+        selectorFilter.setContentTextColor(Title: tablePriText, subTitle: tableSubText)
         
         selectorFilter.completionHandler = { event, selectedValues in
             switch event {
             case .didApply:
-                self.data2 = selectedValues
+                if let selectedData = selectedValues as? [InnoData]{
+                    self.data2 = selectedData
+                }else{
+                    self.data4 = selectedValues as! [String]
+                }
                 print(selectedValues.count)
             case .didCancel:
                 print("Cancel")
             }
         }
         
+        present(selectorFilter, animated: true, completion: nil)
+        
+    }
+    
+    
+    @IBAction func popSelector(_ sender: Any) {
+        openAlert(sender: sender)
+    }
+    
+    @IBAction func showSelector(_ sender: Any) {
+        let selectorFilter = InnoSelector.bottomSheet()
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:titleTextColor]
+
+        selectorFilter.completionHandler = { event, selectedValues in
+            switch event {
+            case .didApply:
+                if let selectedData = selectedValues as? [InnoData]{
+                    self.data2 = selectedData
+                }else{
+                    self.data4 = selectedValues as! [String]
+                }
+                print(selectedValues.count)
+            case .didCancel:
+                print("Cancel")
+            }
+        }
+        
+        selectorFilter.hideTopBar = true
         selectorFilter.setFullScreen = setFullScreen
-        selectorFilter.selectorViewHeightConstant = 300.0
+        selectorFilter.selectorViewHeight = 300.0
         selectorFilter.setTitle(title: titleString, color: titleTextColor) // Set Title Attributes
         selectorFilter.setButtonThemeColor(color: buttonThemeColor)
-        selectorFilter.setTableContent(dataSource: data, selectedValues: data2, isMultiselect: multiselecr, minSelection: 1, maxSelection: 10)
-        selectorFilter.setTableContentTextColor(primaryText: tablePriText, subText: tableSubText)
-        
+        selectorFilter.setContent(dataSource: data3, selectedValues: data4, isMultiselect: multiselecr, minSelection: 1, maxSelection: 10)
+        selectorFilter.setContentTextColor(Title: tablePriText, subTitle: tableSubText)
         
         if pushView {
-            self.navigationController?.pushViewController(selectorFilter, animated: true)
+            selectorFilter.push(viewController: self, innoSelector: selectorFilter)
         }else{
-            selectorFilter.modalPresentationStyle = .overCurrentContext
-            present(selectorFilter, animated: true, completion: nil)
+            selectorFilter.presentIn(viewController: self)
         }
+    }
+    
+    @objc func performTask() -> Void {
+        let selectorFilter = InnoSelector.navigationDropDown()
+        selectorFilter.setContent(dataSource: data3, selectedValues: data4, isMultiselect: false, minSelection: 1, maxSelection: 1)
+        
+        selectorFilter.setContentTextColor(Title: tablePriText, subTitle: tableSubText)
+        
+        selectorFilter.completionHandler = { event, selectedValues in
+            switch event {
+            case .didApply:
+                if let selectedData = selectedValues as? [InnoData]{
+                    self.data2 = selectedData
+                }else{
+                    self.data4 = selectedValues as! [String]
+                }
+                print(selectedValues)
+            case .didCancel:
+                print("Cancel")
+            }
+        }
+        
+        selectorFilter.showSettings()
+
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
+    }
+
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        return UIModalPresentationStyle.none
     }
 }
 

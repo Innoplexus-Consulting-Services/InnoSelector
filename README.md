@@ -18,16 +18,51 @@ Push-View/PresentView      |  Fullscreen
 :-------------------------:|:-------------------------:
 ![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip3.gif)                      |  ![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip4.gif)
 
+Navigation Drop Down      |  Pop Over
+:-------------------------:|:-------------------------:
+
+
 ## Requirements
 - iOS 8.0+
 - Xcode 9.2
 
 ## Usage
-- Initialization:
+### Initialization:
+1. For Bottom Sheet
 ```
-let selectorFilter = InnoSelector.instantiate()
+let selectorFilter = InnoSelector.bottomSheet()
 ```
-- Passing Data:
+2. For PopOver
+```
+// Your class should implement UIAdaptivePresentationControllerDelegate
+class ViewController: UIViewController, UIAdaptivePresentationControllerDelegate{
+
+let selectorFilter = InnoSelector.popOver()
+
+if let whatSender = sender as? UIBarButtonItem{
+selectorFilter.popoverPresentationController?.barButtonItem = whatSender
+}else{
+selectorFilter.popoverPresentationController?.sourceView = sender as? UIView
+}
+selectorFilter.preferredContentSize = CGSize(width: 300, height: 400
+selectorFilter.presentationController?.delegate = self
+
+// Delegate Methods
+func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+return UIModalPresentationStyle.none
+}
+
+func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+return UIModalPresentationStyle.none
+}
+
+}
+```
+3. For Navigation Dropdown(Supports only Single Select)
+```
+let selectorFilter = InnoSelector.navigationDropDown()
+```
+### Passing Data:
 For now we are supporting only [Strings] and [CustomObjects]
 ```
 var data: [InnoData] = []
@@ -47,7 +82,9 @@ For [String]
 ```
 selectorFilter.setContent(dataSource: data3, selectedValues: data4, isMultiselect: multiselecr, minSelection: 1, maxSelection: 10)
 ```
-- Presenting View:
+- Note: For Navigation Drop Down "isMultiselect" should be false.
+### Presenting View:
+1. For Bottom Sheet
 ```
 var pushView: Bool = false
 
@@ -57,7 +94,16 @@ selectorFilter.push(viewController: self, innoSelector: selectorFilter)
 selectorFilter.presentIn(viewController: self)
 }
 ```
-- Completion Handler:
+2. For PopOver
+```
+present(selectorFilter, animated: true, completion: nil)
+```
+3. For Navigation Dropdown
+```
+let selectorFilter = InnoSelector.navigationDropDown()
+selectorFilter.showSettings()
+```
+### Completion Handler:
 ```
 selectorFilter.completionHandler = { event, selectedValues in
 switch event {
@@ -75,6 +121,7 @@ print("Cancel")
 ```
 
 ## Customization
+### For Bottom Sheet
 1. Set FullScreen
 ```
 selectorFilter.setFullScreen = true
@@ -95,9 +142,23 @@ selectorFilter.setButtonThemeColor(color: UIColor.black)
 ```
 selectorFilter.setContentTextColor(Title: tablePriText, subTitle: tableSubText)
 ```
-5. Hide Top Bar
+6. Hide Top Bar
 ```
 selectorFilter.hideTopBar = true
+```
+### For PopOver
+1. Set Button Theme
+```
+selectorFilter.setButtonThemeColor(color: UIColor.black)
+```
+2. Set Content Theme
+```
+selectorFilter.setContentTextColor(Title: tablePriText, subTitle: tableSubText)
+```
+### For Navigation DropDown
+1. Set Content Theme
+```
+selectorFilter.setContentTextColor(Title: tablePriText, subTitle: tableSubText)
 ```
 ## Installation
 

@@ -18,7 +18,7 @@ public enum SelectorFilterEvent {
     case didCancel
 }
 
-public class CustomDataObject: NSObject, Comparable {
+public class InnoData: NSObject, Comparable {
     
     var image : UIImage? = nil
     var mainText : String = ""
@@ -27,23 +27,23 @@ public class CustomDataObject: NSObject, Comparable {
     public override init() {
     }
     
-    public init(image: UIImage?, primaryText: String, subText:String?) {
+    public init(image: UIImage?, mainText: String, subText:String?) {
         self.image = image
-        self.mainText = primaryText
+        self.mainText = mainText
         self.subText = subText
     }
     
-    public static func == (lhs: CustomDataObject, rhs: CustomDataObject) -> Bool {
+    public static func == (lhs: InnoData, rhs: InnoData) -> Bool {
         return lhs.image == rhs.image && lhs.mainText == rhs.mainText && lhs.subText == rhs.subText
     }
     
-    public static func < (lhs: CustomDataObject, rhs: CustomDataObject) -> Bool {
+    public static func < (lhs: InnoData, rhs: InnoData) -> Bool {
 
         return lhs.mainText < rhs.mainText && lhs.subText! < rhs.subText!
         
     }
     
-    static public func > (lhs: CustomDataObject, rhs: CustomDataObject) -> Bool {
+    static public func > (lhs: InnoData, rhs: InnoData) -> Bool {
             return lhs.mainText > rhs.mainText && lhs.subText! > rhs.subText!
     }
 }
@@ -54,8 +54,10 @@ class InnoSelectorCustomCellViewModel: NSObject{
     //MARK: Properties
     
     var isMultiselect = false
-    var selectedValues = [CustomDataObject]()
-    var dataSource = [CustomDataObject]()
+    var selectedValuesCustom = [InnoData]()
+    var selectedValues = [String]()
+    var dataSourceCustom = [InnoData]()
+    var dataSource = [String]()
     var minSelection = 1
     var maxSelection = 10
     
@@ -65,7 +67,15 @@ class InnoSelectorCustomCellViewModel: NSObject{
         
     }
     
-    init(dataSource:[CustomDataObject], selectedValues:[CustomDataObject] = [], isMultiselect:Bool = false, minSelection:Int = 1, maxSelection:Int = 10) {
+    init(dataSource:[InnoData], selectedValues:[InnoData] = [], isMultiselect:Bool = false, minSelection:Int = 1, maxSelection:Int = 100) {
+        self.dataSourceCustom = dataSource
+        self.selectedValuesCustom = selectedValues
+        self.isMultiselect = isMultiselect
+        self.minSelection = minSelection
+        self.maxSelection = maxSelection
+    }
+    
+    init(dataSource:[String], selectedValues:[String] = [], isMultiselect:Bool = false, minSelection:Int = 1, maxSelection:Int = 100) {
         self.dataSource = dataSource
         self.selectedValues = selectedValues
         self.isMultiselect = isMultiselect

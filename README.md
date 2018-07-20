@@ -12,15 +12,15 @@ To run the example project, clone the repo, and run `pod install` from the InnoS
 
 Customisation              |  Single-Select/Multi-Select
 :-------------------------:|:-------------------------:
-![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip1.gif)      |  ![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip2.gif)
+![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip1.gif)  |  ![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip2.gif)
 
 Push-View/PresentView      |  Fullscreen
 :-------------------------:|:-------------------------:
-![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip3.gif)                      |  ![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip4.gif)
+![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip3.gif)|  ![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/master/Assets/Clip4.gif)
 
-Navigation Drop Down      |  Pop Over
+Navigation Drop Down       |  Pop Over
 :-------------------------:|:-------------------------:
-
+![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/dev/Assets/Clip5.gif) |  ![](https://github.com/Innoplexus-Consulting-Services/InnoSelector/blob/dev/Assets/Clip6.gif)
 
 ## Requirements
 - iOS 8.0+

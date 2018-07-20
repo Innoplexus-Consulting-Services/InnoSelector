@@ -78,14 +78,19 @@ public class InnoSelector: UIViewController {
         return alertViewController
     }
     
-    public static func popOver() -> PopOverInnoSelector {
+    public static func popOver(withArrow: Bool = true) -> PopOverInnoSelector {
         
         let storyboardsBundle = getStoryboardsBundle()
         let storyboard:UIStoryboard = UIStoryboard(name: "InnoSelector", bundle: storyboardsBundle)
         let popOverAlertViewController = storyboard.instantiateViewController(withIdentifier: "PopOverInnoSelector") as! PopOverInnoSelector
         
         popOverAlertViewController.modalPresentationStyle = UIModalPresentationStyle.popover
-        popOverAlertViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.init(rawValue: 3)
+        if withArrow {
+            popOverAlertViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.init(rawValue: 3)
+        }else{
+            popOverAlertViewController.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection.init(rawValue: 0)
+        }
+        
         
         // arrow color
         popOverAlertViewController.popoverPresentationController?.backgroundColor = UIColor.white

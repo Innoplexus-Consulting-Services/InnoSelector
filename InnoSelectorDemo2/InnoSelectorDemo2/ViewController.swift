@@ -232,6 +232,8 @@ class ViewController: UIViewController, UIAdaptivePresentationControllerDelegate
         
         selectorFilter.setContentTextColor(Title: tablePriText, subTitle: tableSubText)
         
+        selectorFilter.tableHeight = 250
+        
         selectorFilter.completionHandler = { event, selectedValues in
             switch event {
             case .didApply:
@@ -246,7 +248,7 @@ class ViewController: UIViewController, UIAdaptivePresentationControllerDelegate
             }
         }
         
-        selectorFilter.showSettings()
+        selectorFilter.present()
 
     }
     

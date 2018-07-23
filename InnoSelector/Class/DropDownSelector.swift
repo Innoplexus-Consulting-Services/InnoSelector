@@ -20,12 +20,16 @@ open class DropDownSelector: UITableView {
         return view
     }()
     
+    public var tableHeight: CGFloat = 0
     
-    public func showSettings() {
+    
+    public func present() {
         
         //show menu
         
         if let window = UIApplication.shared.keyWindow {
+            
+            tableHeight = tableHeight != 0 ? tableHeight : CGFloat(innoSelectorViewModel.dataSource.count * 45)
             
             self.navigationController = window.rootViewController?.topMostViewController?.navigationController
             
@@ -111,7 +115,7 @@ open class DropDownSelector: UITableView {
             
             self.blackView.alpha = 1
             
-            self.selectorTableView.frame = CGRect(x: 0, y: (self.navigationController?.navigationBar.frame.maxY)! + 0.5 , width: self.selectorTableView.frame.width, height: 250)
+            self.selectorTableView.frame = CGRect(x: 0, y: (self.navigationController?.navigationBar.frame.maxY)! + 0.5 , width: self.selectorTableView.frame.width, height: self.tableHeight)
             
         }, completion: nil)
     }
@@ -120,7 +124,7 @@ open class DropDownSelector: UITableView {
         
         isShown = false
         
-        self.selectorTableView.frame = CGRect(x: 0, y: (self.navigationController?.navigationBar.frame.maxY)! + 0.5, width: self.selectorTableView.frame.width, height: 250)
+        self.selectorTableView.frame = CGRect(x: 0, y: (self.navigationController?.navigationBar.frame.maxY)! + 0.5, width: self.selectorTableView.frame.width, height: tableHeight)
         
         UIView.animate(withDuration: 0.2) {
             self.blackView.alpha = 0

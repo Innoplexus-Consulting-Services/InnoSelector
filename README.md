@@ -101,7 +101,7 @@ present(selectorFilter, animated: true, completion: nil)
 3. For Navigation Dropdown
 ```
 let selectorFilter = InnoSelector.navigationDropDown()
-selectorFilter.showSettings()
+selectorFilter.present()
 ```
 ### Completion Handler:
 ```
@@ -159,6 +159,10 @@ selectorFilter.setContentTextColor(Title: tablePriText, subTitle: tableSubText)
 1. Set Content Theme
 ```
 selectorFilter.setContentTextColor(Title: tablePriText, subTitle: tableSubText)
+```
+2. Set Table Height
+```
+selectorFilter.tableHeight = 250
 ```
 ## Installation
 

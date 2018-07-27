@@ -14,7 +14,7 @@ open class DropDownSelector: UITableView {
     
     let blackView = UIView()
     
-    let selectorTableView: UITableView = {
+    public var selectorTableView: UITableView = {
         let view = UITableView()
         view.backgroundColor = UIColor.white
         return view

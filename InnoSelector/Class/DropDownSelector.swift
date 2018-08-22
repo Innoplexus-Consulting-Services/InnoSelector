@@ -36,7 +36,7 @@ open class DropDownSelector: UITableView {
             blackView.backgroundColor = UIColor(white: 0, alpha: 0.5)
             
             blackView.addTapGestureRecognizer {
-                self.dismiss()
+                self.cancelButtonPressed()
             }
             
             selectorTableView.rowHeight = UITableViewAutomaticDimension
@@ -104,6 +104,19 @@ open class DropDownSelector: UITableView {
             }else {
                 selectorTableView.shake()
             }
+        }
+    }
+    
+    
+    func cancelButtonPressed() {
+        if isCustom{
+            completionHandler!(.didCancel, innoSelectorViewModel.selectedValuesCustom)
+            self.dismiss()
+            
+        }else{
+            completionHandler!(.didCancel, innoSelectorViewModel.selectedValues)
+            self.dismiss()
+            
         }
     }
     

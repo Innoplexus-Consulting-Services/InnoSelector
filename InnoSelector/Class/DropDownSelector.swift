@@ -57,7 +57,7 @@ open class DropDownSelector: UITableView {
         }
         
         if isShown {
-            dismiss()
+            cancelButtonPressed()
         }else{
             show()
         }

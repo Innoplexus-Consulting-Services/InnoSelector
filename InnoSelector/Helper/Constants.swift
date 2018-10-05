@@ -13,6 +13,12 @@ var innoSelectorViewModel = InnoSelectorCustomCellViewModel()
 var selectorTitleColor: UIColor? = UIColor.black
 var selectorTitleValue: String? = "Title"
 
+var textLabelFont: String? = nil
+var textLabelSize: CGFloat? = nil
+var detailTextLabelFont: String? = nil
+var detailTextLabelSize: CGFloat? = nil
+
+
 var cellPrimaryTextColor:UIColor? = UIColor.black
 var cellSubTextColor:UIColor? = UIColor.darkGray
 

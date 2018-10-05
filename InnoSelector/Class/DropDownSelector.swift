@@ -89,6 +89,26 @@ open class DropDownSelector: UITableView {
         cellSubTextColor = subTitle
     }
     
+    /// Sent font for textLabel
+    ///
+    /// - Parameters:
+    ///   - name: Font Name
+    ///   - size: Font Size
+    public func setTextLabelFont(name: String, size: CGFloat? = 18) -> Void {
+        textLabelFont = name
+        textLabelSize = size
+    }
+    
+    /// Sent font for detailTextLabel
+    ///
+    /// - Parameters:
+    ///   - name: Font Name
+    ///   - size: Font Size
+    public func setDetailTextLabelFont(name: String, size: CGFloat? = 14) -> Void {
+        detailTextLabelFont = name
+        detailTextLabelSize = size
+    }
+    
     func applyButtonPressed() -> Void {
         if isCustom{
             if innoSelectorViewModel.selectedValuesCustom.count != 0  {
@@ -174,6 +194,13 @@ extension DropDownSelector: UITableViewDelegate, UITableViewDataSource{
             cell?.imageView?.sizeToFit()
             cell?.textLabel?.textColor = cellPrimaryTextColor
             cell?.detailTextLabel?.textColor = cellSubTextColor
+            if textLabelFont != nil{
+                cell?.textLabel?.font = UIFont(name: textLabelFont!, size: textLabelSize!)
+            }
+            
+            if detailTextLabelFont != nil{
+                cell?.detailTextLabel?.font = UIFont(name: detailTextLabelFont!, size: detailTextLabelSize!)
+            }
             cell?.imageView?.image = innoSelectorViewModel.dataSourceCustom[indexPath.row].image
             cell?.textLabel?.text = innoSelectorViewModel.dataSourceCustom[indexPath.row].mainText
             cell?.detailTextLabel?.text = innoSelectorViewModel.dataSourceCustom[indexPath.row].subText
@@ -187,6 +214,9 @@ extension DropDownSelector: UITableViewDelegate, UITableViewDataSource{
         } else {
             let value = innoSelectorViewModel.dataSource[indexPath.row]
             cell?.textLabel?.textColor = cellPrimaryTextColor
+            if textLabelFont != nil{
+                cell?.textLabel?.font = UIFont(name: textLabelFont!, size: textLabelSize!)
+            }
             cell?.textLabel?.text = innoSelectorViewModel.dataSource[indexPath.row]
             
             if innoSelectorViewModel.selectedValues.contains(value) {

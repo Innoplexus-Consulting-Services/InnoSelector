@@ -217,6 +217,26 @@ public class InnoSelector: UIViewController {
         selectorTitleColor = color
     }
     
+    /// Sent font for textLabel
+    ///
+    /// - Parameters:
+    ///   - name: Font Name
+    ///   - size: Font Size
+    public func setTextLabelFont(name: String, size: CGFloat? = 18) -> Void {
+        textLabelFont = name
+        textLabelSize = size
+    }
+    
+    /// Sent font for detailTextLabel
+    ///
+    /// - Parameters:
+    ///   - name: Font Name
+    ///   - size: Font Size
+    public func setDetailTextLabelFont(name: String, size: CGFloat? = 14) -> Void {
+        detailTextLabelFont = name
+        detailTextLabelSize = size
+    }
+    
     /// It will set the color to the event buttons in the bottom
     ///
     /// - Parameter color: Button Color
@@ -304,6 +324,15 @@ extension InnoSelector: UITableViewDelegate, UITableViewDataSource{
         if isCustom {
             let value = innoSelectorViewModel.dataSourceCustom[indexPath.row]
             cell?.imageView?.sizeToFit()
+            
+            if textLabelFont != nil{
+                cell?.textLabel?.font = UIFont(name: textLabelFont!, size: textLabelSize!)
+            }
+            
+            if detailTextLabelFont != nil{
+                cell?.detailTextLabel?.font = UIFont(name: detailTextLabelFont!, size: detailTextLabelSize!)
+            }
+            
             cell?.textLabel?.textColor = cellPrimaryTextColor
             cell?.detailTextLabel?.textColor = cellSubTextColor
             cell?.imageView?.image = innoSelectorViewModel.dataSourceCustom[indexPath.row].image
@@ -319,6 +348,9 @@ extension InnoSelector: UITableViewDelegate, UITableViewDataSource{
         } else {
             let value = innoSelectorViewModel.dataSource[indexPath.row]
             cell?.textLabel?.textColor = cellPrimaryTextColor
+            if textLabelFont != nil{
+                cell?.textLabel?.font = UIFont(name: textLabelFont!, size: textLabelSize!)
+            }
             cell?.textLabel?.text = innoSelectorViewModel.dataSource[indexPath.row]
             
             if innoSelectorViewModel.selectedValues.contains(value) {

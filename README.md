@@ -146,6 +146,11 @@ selectorFilter.setContentTextColor(Title: tablePriText, subTitle: tableSubText)
 ```
 selectorFilter.hideTopBar = true
 ```
+7. Set Font
+```
+selectorFilter.setTextLabelFont(name: "Avenir", size: 15)
+selectorFilter.setDetailTextLabelFont(name: "Avenir", size: 15)
+```
 ### For PopOver
 1. Set Button Theme
 ```

@@ -196,7 +196,6 @@ class ViewController: UIViewController, UIAdaptivePresentationControllerDelegate
     @IBAction func showSelector(_ sender: Any) {
         let selectorFilter = InnoSelector.bottomSheet()
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor:titleTextColor]
-
         selectorFilter.completionHandler = { event, selectedValues in
             switch event {
             case .didApply:
@@ -216,6 +215,8 @@ class ViewController: UIViewController, UIAdaptivePresentationControllerDelegate
         selectorFilter.selectorViewHeight = 300.0
         selectorFilter.setTitle(title: titleString, color: titleTextColor) // Set Title Attributes
         selectorFilter.setButtonThemeColor(color: buttonThemeColor)
+        selectorFilter.applyButton(text: "Apply")
+        selectorFilter.cancelButton(text: "Remove All")
         selectorFilter.setContent(dataSource: data3, selectedValues: data4, isMultiselect: multiselecr, minSelection: 1, maxSelection: 10)
         selectorFilter.setContentTextColor(Title: tablePriText, subTitle: tableSubText)
         

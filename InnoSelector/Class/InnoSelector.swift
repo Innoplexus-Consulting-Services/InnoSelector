@@ -197,6 +197,8 @@ public class InnoSelector: UIViewController {
         cancelButton.layer.borderWidth = 0.5
         cancelButton.layer.borderColor = UIColor.darkGray.cgColor
         cancelButton.setTitleColor(buttonThemeColor, for: .normal)
+        applyButton.setTitle(applyText, for: .normal)
+        cancelButton.setTitle(cancelText, for: .normal)
         applyButton.backgroundColor = buttonThemeColor
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(cancelButtonPressed(_:)))
@@ -242,6 +244,17 @@ public class InnoSelector: UIViewController {
     /// - Parameter color: Button Color
     public func setButtonThemeColor(color:UIColor?) -> Void {
         buttonThemeColor = color
+    }
+    
+    /// It will set the title to the event buttons in the bottom
+    ///
+    /// - Parameter text: Button Title
+    public func applyButton(text: String) -> Void{
+        applyText = text
+    }
+    
+    public func cancelButton(text: String) -> Void {
+        cancelText = text
     }
     
     /// It will get the data from the user and store that to the model class

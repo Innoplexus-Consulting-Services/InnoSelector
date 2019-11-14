@@ -213,6 +213,7 @@ extension DropDownSelector: UITableViewDelegate, UITableViewDataSource{
             return cell!
         } else {
             let value = innoSelectorViewModel.dataSource[indexPath.row]
+//            cell?.backgroundColor = UICo/lor.red
             cell?.textLabel?.textColor = cellPrimaryTextColor
             if textLabelFont != nil{
                 cell?.textLabel?.font = UIFont(name: textLabelFont!, size: textLabelSize!)

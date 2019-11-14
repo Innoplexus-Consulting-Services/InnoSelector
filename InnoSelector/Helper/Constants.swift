@@ -17,6 +17,9 @@ var textLabelFont: String? = nil
 var textLabelSize: CGFloat? = nil
 var detailTextLabelFont: String? = nil
 var detailTextLabelSize: CGFloat? = nil
+var cancelText: String? = "Cancel"
+var applyText: String? = "Apply"
+
 
 
 var cellPrimaryTextColor:UIColor? = UIColor.black
